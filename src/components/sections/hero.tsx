@@ -87,13 +87,13 @@ function BugRadar() {
       <svg viewBox="0 0 200 200" className="h-44 w-44 sm:h-60 sm:w-60">
         <defs>
           <linearGradient id="radar-gradient" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0%" stopColor="#6366f1" />
-            <stop offset="50%" stopColor="#8b5cf6" />
+            <stop offset="0%" stopColor="#10b981" />
+            <stop offset="50%" stopColor="#14b8a6" />
             <stop offset="100%" stopColor="#22d3ee" />
           </linearGradient>
           <linearGradient id="radar-sweep" x1="0" y1="0" x2="1" y2="0">
             <stop offset="0%" stopColor="#22d3ee" stopOpacity="0.5" />
-            <stop offset="100%" stopColor="#8b5cf6" stopOpacity="0" />
+            <stop offset="100%" stopColor="#14b8a6" stopOpacity="0" />
           </linearGradient>
         </defs>
 
@@ -130,8 +130,8 @@ function BugRadar() {
         {/* Detection blips lighting up around the scope */}
         {[
           { cx: 146, cy: 72, fill: "#22d3ee", delay: 0 },
-          { cx: 63, cy: 138, fill: "#8b5cf6", delay: 1.6 },
-          { cx: 128, cy: 142, fill: "#6366f1", delay: 3.1 },
+          { cx: 63, cy: 138, fill: "#14b8a6", delay: 1.6 },
+          { cx: 128, cy: 142, fill: "#10b981", delay: 3.1 },
         ].map(({ cx, cy, fill, delay }) => (
           <motion.circle
             key={`${cx}-${cy}`}
@@ -176,7 +176,7 @@ export function Hero() {
       />
       <div
         aria-hidden="true"
-        className="glow-blob left-[12%] top-8 -z-10 h-72 w-72 animate-float bg-indigo-500/20"
+        className="glow-blob left-[12%] top-8 -z-10 h-72 w-72 animate-float bg-emerald-500/20"
       />
       <div
         aria-hidden="true"
@@ -287,7 +287,7 @@ export function Hero() {
                 className="absolute -inset-1.5 animate-spin-slow rounded-full opacity-80 blur-[6px]"
                 style={{
                   background:
-                    "conic-gradient(from 90deg, #6366f1, #8b5cf6, #22d3ee, #6366f1)",
+                    "conic-gradient(from 90deg, #10b981, #14b8a6, #22d3ee, #10b981)",
                 }}
               />
               {/*

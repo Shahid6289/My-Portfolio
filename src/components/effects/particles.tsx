@@ -34,9 +34,9 @@ export function ParticlesBackground() {
   // Theme color lives in a ref so toggling the theme recolors on the next
   // frame instead of tearing down and respawning the whole simulation.
   // Dark-first site: fall back to the dark tone until the theme resolves.
-  const rgbRef = useRef("165, 180, 252");
+  const rgbRef = useRef("110, 231, 183");
   useEffect(() => {
-    rgbRef.current = resolvedTheme === "light" ? "99, 102, 241" : "165, 180, 252";
+    rgbRef.current = resolvedTheme === "light" ? "5, 150, 105" : "110, 231, 183";
   }, [resolvedTheme]);
 
   useEffect(() => {

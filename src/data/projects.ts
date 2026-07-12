@@ -25,7 +25,7 @@ export const projects: Project[] = [
       "Self-contained single-file HTML report generated from each run's JSON summary",
     ],
     techStack: ["k6", "TypeScript", "gRPC", "WebSocket", "REST", "Node.js"],
-    gradient: "from-indigo-500 via-violet-500 to-fuchsia-500",
+    gradient: "from-emerald-500 via-teal-500 to-cyan-500",
     icon: "Gauge",
   },
   {
@@ -39,7 +39,7 @@ export const projects: Project[] = [
       "Database-level assertions on user and transaction records",
     ],
     techStack: ["React.js", "Node.js", "JavaScript", "JWT Auth", "TestNG"],
-    gradient: "from-cyan-500 via-sky-500 to-indigo-500",
+    gradient: "from-teal-500 via-cyan-500 to-sky-500",
     icon: "GraduationCap",
   },
 ];

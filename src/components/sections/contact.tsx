@@ -114,7 +114,7 @@ export function Contact() {
         aria-hidden="true"
         className="absolute inset-0 bg-grid [mask-image:radial-gradient(ellipse_60%_50%_at_50%_40%,black,transparent)]"
       />
-      <div aria-hidden="true" className="glow-blob left-1/4 top-0 h-72 w-72 bg-indigo-500/20" />
+      <div aria-hidden="true" className="glow-blob left-1/4 top-0 h-72 w-72 bg-emerald-500/20" />
       <div aria-hidden="true" className="glow-blob bottom-10 right-1/4 h-72 w-72 bg-cyan-500/10" />
 
       <div className="container relative">

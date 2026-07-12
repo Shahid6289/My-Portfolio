@@ -21,7 +21,7 @@ export function Achievements() {
       {/* Decorative backdrop */}
       <div
         aria-hidden="true"
-        className="glow-blob right-1/4 top-10 h-72 w-72 bg-violet-500/15"
+        className="glow-blob right-1/4 top-10 h-72 w-72 bg-teal-500/15"
       />
 
       <div className="container relative">
@@ -48,7 +48,7 @@ export function Achievements() {
                 className="group rounded-2xl border bg-card p-6 transition-all duration-300 hover:-translate-y-1 hover:border-primary/30 hover:shadow-lg hover:shadow-primary/10"
               >
                 <div className="flex items-start gap-4">
-                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-indigo-500 to-cyan-500 text-white shadow-md">
+                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-emerald-500 to-cyan-500 text-white shadow-md">
                     <Icon aria-hidden="true" className="h-5 w-5" />
                   </div>
                   <div className="space-y-1.5">

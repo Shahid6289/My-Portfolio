@@ -12,7 +12,7 @@ export function About() {
   return (
     <section id="about" className="relative overflow-hidden py-24 sm:py-28">
       <div
-        className="glow-blob left-1/4 top-0 h-72 w-72 bg-indigo-500/20"
+        className="glow-blob left-1/4 top-0 h-72 w-72 bg-emerald-500/20"
         aria-hidden="true"
       />
 

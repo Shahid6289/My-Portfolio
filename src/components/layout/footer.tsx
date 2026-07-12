@@ -37,7 +37,7 @@ export function Footer() {
       {/* Soft glow behind the CTA band */}
       <div
         aria-hidden="true"
-        className="glow-blob left-1/2 top-0 h-56 w-[28rem] -translate-x-1/2 bg-indigo-500/10"
+        className="glow-blob left-1/2 top-0 h-56 w-[28rem] -translate-x-1/2 bg-emerald-500/10"
       />
 
       <div className="container relative">

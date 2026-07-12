@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Space_Grotesk } from "next/font/google";
+import { Inter, Sora } from "next/font/google";
 
 import { ThemeProvider } from "@/components/theme/theme-provider";
 import { site } from "@/data/site";
@@ -12,7 +12,7 @@ const inter = Inter({
   display: "swap",
 });
 
-const spaceGrotesk = Space_Grotesk({
+const sora = Sora({
   subsets: ["latin"],
   variable: "--font-display",
   display: "swap",
@@ -75,7 +75,7 @@ export default function RootLayout({
           attribute mismatches on this element, not its children */}
       <body
         suppressHydrationWarning
-        className={`${inter.variable} ${spaceGrotesk.variable} font-sans`}
+        className={`${inter.variable} ${sora.variable} font-sans`}
       >
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
           <a
