@@ -23,7 +23,7 @@ import {
   type SimpleIcon,
 } from "simple-icons";
 
-import { ParticlesBackground } from "@/components/effects/particles";
+import { AmbientBackground } from "@/components/effects/ambient";
 import { Typewriter } from "@/components/effects/typewriter";
 import { buttonVariants } from "@/components/ui/button";
 import { site } from "@/data/site";
@@ -168,20 +168,11 @@ export function Hero() {
       id="home"
       className="relative flex min-h-screen items-center overflow-hidden pb-16 pt-24"
     >
-      {/* Backdrop layers */}
-      <ParticlesBackground />
+      {/* Backdrop layers — drifting ambient orbs under a masked dot grid */}
+      <AmbientBackground />
       <div
         aria-hidden="true"
         className="bg-grid absolute inset-0 -z-10 [mask-image:radial-gradient(ellipse_70%_60%_at_50%_35%,black,transparent)]"
-      />
-      <div
-        aria-hidden="true"
-        className="glow-blob left-[12%] top-8 -z-10 h-72 w-72 animate-float bg-emerald-500/20"
-      />
-      <div
-        aria-hidden="true"
-        className="glow-blob bottom-16 right-[10%] -z-10 h-72 w-72 animate-float bg-cyan-500/20"
-        style={{ animationDelay: "2.5s" }}
       />
 
       <div className="container">

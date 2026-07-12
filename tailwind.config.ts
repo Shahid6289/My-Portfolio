@@ -64,6 +64,20 @@ const config: Config = {
           from: { backgroundPosition: "0 0" },
           to: { backgroundPosition: "-200% 0" },
         },
+        // Slow wandering paths for the ambient hero orbs (run with
+        // direction: alternate so they drift back and forth)
+        "drift-1": {
+          "0%": { transform: "translate(0, 0) scale(1)" },
+          "100%": { transform: "translate(40px, -50px) scale(1.08)" },
+        },
+        "drift-2": {
+          "0%": { transform: "translate(0, 0) scale(1)" },
+          "100%": { transform: "translate(-50px, 30px) scale(0.95)" },
+        },
+        "drift-3": {
+          "0%": { transform: "translate(0, 0) scale(1)" },
+          "100%": { transform: "translate(25px, 40px) scale(1.05)" },
+        },
       },
       animation: {
         blink: "blink 1s step-end infinite",
@@ -74,6 +88,9 @@ const config: Config = {
         orbit: "spin-slow 50s linear infinite",
         "orbit-reverse": "spin-slow 50s linear infinite reverse",
         shimmer: "shimmer 8s linear infinite",
+        "drift-1": "drift-1 22s ease-in-out infinite alternate",
+        "drift-2": "drift-2 28s ease-in-out infinite alternate",
+        "drift-3": "drift-3 25s ease-in-out infinite alternate",
       },
     },
   },
