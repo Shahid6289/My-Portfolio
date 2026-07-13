@@ -95,6 +95,21 @@ const RADAR_TICKS = [
 ] as const;
 
 /**
+ * Sweep afterglow: six 10° slices trailing the beam on the r=90 arc, with
+ * smoothly fading opacity — reads like a phosphor trail instead of a solid
+ * cone. Precomputed literals for the same hydration-safety reason as the
+ * ticks (no render-time trig).
+ */
+const SWEEP_SECTORS = [
+  { d: "M100 100 L84.37 11.37 A90 90 0 0 1 100 10 Z", opacity: 0.24 },
+  { d: "M100 100 L69.22 15.42 A90 90 0 0 1 84.37 11.37 Z", opacity: 0.17 },
+  { d: "M100 100 L55 22.06 A90 90 0 0 1 69.22 15.42 Z", opacity: 0.12 },
+  { d: "M100 100 L42.15 31.06 A90 90 0 0 1 55 22.06 Z", opacity: 0.08 },
+  { d: "M100 100 L31.06 42.15 A90 90 0 0 1 42.15 31.06 Z", opacity: 0.05 },
+  { d: "M100 100 L22.06 55 A90 90 0 0 1 31.06 42.15 Z", opacity: 0.025 },
+] as const;
+
+/**
  * Animated centrepiece for the portrait circle: a bug-hunting radar scope —
  * concentric rings and a crosshair, a sweep beam revolving over them, blips
  * pulsing as they're "detected", and a bug glyph caught dead-centre. A
@@ -165,32 +180,18 @@ function BugRadar() {
           className="animate-[spin-slow_6s_linear_infinite]"
           style={{ transformBox: "view-box", transformOrigin: "100px 100px" }}
         >
-          <path
-            d="M100 100 L69.22 15.42 A90 90 0 0 1 100 10 Z"
-            fill="url(#radar-gradient)"
-            opacity="0.28"
-          />
-          <path
-            d="M100 100 L42.15 31.06 A90 90 0 0 1 69.22 15.42 Z"
-            fill="url(#radar-gradient)"
-            opacity="0.13"
-          />
-          <path
-            d="M100 100 L22.06 55 A90 90 0 0 1 42.15 31.06 Z"
-            fill="url(#radar-gradient)"
-            opacity="0.05"
-          />
+          {SWEEP_SECTORS.map(({ d, opacity }) => (
+            <path key={d} d={d} fill="url(#radar-gradient)" opacity={opacity} />
+          ))}
           <line
             x1="100"
             y1="100"
             x2="100"
             y2="10"
             stroke="url(#radar-gradient)"
-            strokeWidth="2"
-            opacity="0.8"
+            strokeWidth="1.5"
+            opacity="0.75"
           />
-          <circle cx="100" cy="10" r="6.5" fill="#22d3ee" opacity="0.25" />
-          <circle cx="100" cy="10" r="3" fill="#22d3ee" opacity="0.9" />
         </g>
 
         {/* Detection blips lighting up around the scope */}
@@ -204,8 +205,8 @@ function BugRadar() {
             cx={cx}
             cy={cy}
             fill={fill}
-            initial={{ r: 3, opacity: 0.35 }}
-            animate={reduce ? { r: 3, opacity: 0.5 } : { r: [2.5, 4.5, 2.5], opacity: [0.15, 0.9, 0.15] }}
+            initial={{ r: 2.5, opacity: 0.35 }}
+            animate={reduce ? { r: 2.5, opacity: 0.5 } : { r: [2, 3.5, 2], opacity: [0.15, 0.85, 0.15] }}
             transition={
               reduce ? { duration: 0 } : { duration: 5, delay, repeat: Infinity, ease: "easeInOut" }
             }
