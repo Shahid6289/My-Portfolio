@@ -48,11 +48,11 @@ export function Achievements() {
                 className="group rounded-2xl border bg-card p-6 transition-all duration-300 hover:-translate-y-1 hover:border-primary/30 hover:shadow-lg hover:shadow-primary/10"
               >
                 <div className="flex items-start gap-4">
-                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-indigo-500 to-cyan-500 text-white shadow-md">
+                  <div className="shine flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-indigo-500 to-cyan-500 text-white shadow-md transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3">
                     <Icon aria-hidden="true" className="h-5 w-5" />
                   </div>
                   <div className="space-y-1.5">
-                    <h3 className="font-display font-semibold tracking-tight">
+                    <h3 className="font-display font-semibold tracking-tight transition-colors duration-300 group-hover:text-primary">
                       {achievement.title}
                     </h3>
                     <p className="text-sm leading-relaxed text-muted-foreground">

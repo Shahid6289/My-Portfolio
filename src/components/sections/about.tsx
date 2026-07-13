@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { Briefcase, Mail, MapPin } from "lucide-react";
 
+import { CountUp } from "@/components/shared/count-up";
 import { SectionHeading } from "@/components/shared/section-heading";
 import { about } from "@/data/about";
 import { site } from "@/data/site";
@@ -44,12 +45,20 @@ export function About() {
 
             <motion.div variants={fadeUp} className="glass rounded-2xl p-6">
               <ul className="flex flex-col gap-4 text-sm">
-                <li className="flex items-center gap-3">
-                  <MapPin className="h-4 w-4 shrink-0 text-primary" aria-hidden="true" />
-                  <span className="text-muted-foreground">{site.location}</span>
+                <li className="group/item flex items-center gap-3">
+                  <MapPin
+                    className="h-4 w-4 shrink-0 text-primary transition-transform duration-300 group-hover/item:translate-x-0.5"
+                    aria-hidden="true"
+                  />
+                  <span className="text-muted-foreground transition-colors group-hover/item:text-foreground">
+                    {site.location}
+                  </span>
                 </li>
-                <li className="flex items-center gap-3">
-                  <Mail className="h-4 w-4 shrink-0 text-primary" aria-hidden="true" />
+                <li className="group/item flex items-center gap-3">
+                  <Mail
+                    className="h-4 w-4 shrink-0 text-primary transition-transform duration-300 group-hover/item:translate-x-0.5"
+                    aria-hidden="true"
+                  />
                   <a
                     href={`mailto:${site.email}`}
                     className="text-muted-foreground transition-colors hover:text-primary"
@@ -57,9 +66,14 @@ export function About() {
                     {site.email}
                   </a>
                 </li>
-                <li className="flex items-center gap-3">
-                  <Briefcase className="h-4 w-4 shrink-0 text-primary" aria-hidden="true" />
-                  <span className="text-muted-foreground">SDET @ BestQ Software</span>
+                <li className="group/item flex items-center gap-3">
+                  <Briefcase
+                    className="h-4 w-4 shrink-0 text-primary transition-transform duration-300 group-hover/item:translate-x-0.5"
+                    aria-hidden="true"
+                  />
+                  <span className="text-muted-foreground transition-colors group-hover/item:text-foreground">
+                    SDET @ BestQ Software
+                  </span>
                 </li>
               </ul>
             </motion.div>
@@ -77,10 +91,14 @@ export function About() {
               <motion.div
                 key={stat.label}
                 variants={scaleIn}
-                className="flex flex-col justify-center gap-2 rounded-2xl border border-border bg-card p-6 text-center shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-primary/30 hover:shadow-lg hover:shadow-primary/10"
+                className="group relative flex flex-col justify-center gap-2 overflow-hidden rounded-2xl border border-border bg-card p-6 text-center shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-primary/30 hover:shadow-lg hover:shadow-primary/10"
               >
+                <div
+                  className="pointer-events-none absolute -right-4 -top-4 h-16 w-16 rounded-full bg-primary/10 opacity-0 blur-2xl transition-opacity duration-300 group-hover:opacity-100"
+                  aria-hidden="true"
+                />
                 <span className="text-gradient font-display text-3xl font-bold tracking-tight sm:text-4xl">
-                  {stat.value}
+                  <CountUp value={stat.value} />
                 </span>
                 <span className="text-xs leading-snug text-muted-foreground sm:text-sm">
                   {stat.label}

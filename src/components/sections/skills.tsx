@@ -63,19 +63,36 @@ export function Skills() {
             const Icon = iconMap[category.icon];
             return (
               <motion.div key={category.title} variants={fadeUp}>
-                <Card className="h-full hover:-translate-y-1 hover:border-primary/30 hover:shadow-lg hover:shadow-primary/10">
+                <Card className="group relative h-full overflow-hidden hover:-translate-y-1 hover:border-primary/30 hover:shadow-lg hover:shadow-primary/10">
+                  <div
+                    className="bg-gradient-brand absolute inset-x-0 top-0 h-px opacity-0 transition-opacity duration-300 group-hover:opacity-60"
+                    aria-hidden="true"
+                  />
                   <CardHeader className="flex-row items-center gap-3 space-y-0">
-                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-indigo-500/15 to-cyan-500/15 text-primary">
+                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-indigo-500/15 to-cyan-500/15 text-primary transition-all duration-300 group-hover:scale-110 group-hover:shadow-[0_0_18px_-4px_hsl(var(--primary)/0.45)]">
                       <Icon className="h-5 w-5" aria-hidden="true" />
                     </div>
                     <CardTitle>{category.title}</CardTitle>
                   </CardHeader>
-                  <CardContent className="flex flex-wrap gap-2">
-                    {category.skills.map((skill) => (
-                      <Badge key={skill} variant="secondary">
-                        {skill}
-                      </Badge>
-                    ))}
+                  <CardContent>
+                    <motion.div
+                      variants={staggerContainer(0.03)}
+                      initial="hidden"
+                      whileInView="visible"
+                      viewport={VIEWPORT}
+                      className="flex flex-wrap gap-2"
+                    >
+                      {category.skills.map((skill) => (
+                        <motion.span key={skill} variants={fadeUp}>
+                          <Badge
+                            variant="secondary"
+                            className="transition-colors hover:border-primary/40 hover:text-primary"
+                          >
+                            {skill}
+                          </Badge>
+                        </motion.span>
+                      ))}
+                    </motion.div>
                   </CardContent>
                 </Card>
               </motion.div>

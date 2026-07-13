@@ -6,7 +6,7 @@ import { ChevronRight, MapPin } from "lucide-react";
 import { SectionHeading } from "@/components/shared/section-heading";
 import { Badge } from "@/components/ui/badge";
 import { experiences } from "@/data/experience";
-import { scaleIn, slideInLeft, slideInRight, staggerContainer, VIEWPORT } from "@/lib/motion";
+import { EASE, scaleIn, slideInLeft, slideInRight, staggerContainer, VIEWPORT } from "@/lib/motion";
 import { cn } from "@/lib/utils";
 
 /**
@@ -34,11 +34,19 @@ export function Experience() {
         />
 
         <div className="relative mx-auto max-w-5xl">
-          {/* Timeline rail */}
+          {/* Timeline rail — draws in from the top on scroll into view */}
           <div
             aria-hidden
-            className="absolute bottom-0 left-[5px] top-1 w-px bg-gradient-to-b from-indigo-500 via-violet-500 to-cyan-400/40 lg:left-1/2 lg:-translate-x-1/2"
-          />
+            className="absolute bottom-0 left-[5px] top-1 w-px lg:left-1/2 lg:-translate-x-1/2"
+          >
+            <motion.div
+              initial={{ scaleY: 0 }}
+              whileInView={{ scaleY: 1 }}
+              viewport={VIEWPORT}
+              transition={{ duration: 1.1, ease: EASE }}
+              className="h-full w-full origin-top bg-gradient-to-b from-indigo-500 via-violet-500 to-cyan-400/40"
+            />
+          </div>
 
           <motion.ol
             variants={staggerContainer(0.12)}
@@ -73,7 +81,7 @@ export function Experience() {
                   <motion.article
                     variants={isLeft ? slideInLeft : slideInRight}
                     className={cn(
-                      "glass rounded-2xl p-6 transition-all duration-300 hover:-translate-y-1 hover:border-primary/30 hover:shadow-lg hover:shadow-primary/10",
+                      "group glass rounded-2xl p-6 transition-all duration-300 hover:-translate-y-1 hover:border-primary/30 hover:shadow-lg hover:shadow-primary/10",
                       isLeft ? "lg:col-start-1" : "lg:col-start-2"
                     )}
                   >
@@ -81,23 +89,38 @@ export function Experience() {
                     <div className="flex flex-wrap items-start justify-between gap-3">
                       <div>
                         <h3 className="font-display text-lg font-semibold">{experience.role}</h3>
-                        <p className="mt-1 font-medium text-primary">{experience.company}</p>
+                        <p className="mt-1 font-medium text-primary">
+                          <span className="bg-gradient-brand bg-[length:0%_1px] bg-left-bottom bg-no-repeat pb-0.5 transition-[background-size] duration-500 group-hover:bg-[length:100%_1px]">
+                            {experience.company}
+                          </span>
+                        </p>
                         <p className="mt-1 flex items-center gap-1.5 text-sm text-muted-foreground">
                           <MapPin className="h-3.5 w-3.5 shrink-0" aria-hidden />
                           {experience.location}
                         </p>
                       </div>
-                      <Badge variant="glow" className="shrink-0">
-                        {experience.duration}
-                      </Badge>
+                      <span className="relative inline-flex shrink-0">
+                        {isCurrent ? (
+                          <span
+                            aria-hidden
+                            className="absolute inset-0 animate-pulse rounded-full bg-primary/25 blur-[6px] motion-reduce:hidden"
+                          />
+                        ) : null}
+                        <Badge variant="glow" className="relative">
+                          {experience.duration}
+                        </Badge>
+                      </span>
                     </div>
 
                     {/* Highlights */}
                     <ul className="mt-5 space-y-2.5">
                       {experience.highlights.map((highlight) => (
-                        <li key={highlight} className="flex gap-2">
-                          <ChevronRight className="mt-1 h-4 w-4 shrink-0 text-primary" aria-hidden />
-                          <span className="text-sm leading-relaxed text-muted-foreground">
+                        <li key={highlight} className="group/item flex gap-2">
+                          <ChevronRight
+                            className="mt-1 h-4 w-4 shrink-0 text-primary transition-transform duration-300 group-hover/item:translate-x-0.5"
+                            aria-hidden
+                          />
+                          <span className="text-sm leading-relaxed text-muted-foreground transition-colors duration-300 group-hover/item:text-foreground">
                             {highlight}
                           </span>
                         </li>
@@ -107,7 +130,11 @@ export function Experience() {
                     {/* Tech tags */}
                     <div className="mt-5 flex flex-wrap gap-2 border-t border-border/60 pt-4">
                       {experience.technologies.map((technology) => (
-                        <Badge key={technology} variant="outline">
+                        <Badge
+                          key={technology}
+                          variant="outline"
+                          className="transition-colors hover:border-primary/40 hover:text-primary"
+                        >
                           {technology}
                         </Badge>
                       ))}

@@ -1,8 +1,9 @@
 "use client";
 
 import * as React from "react";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import {
+  ArrowUpRight,
   CheckCircle2,
   Github,
   Linkedin,
@@ -20,7 +21,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { SectionHeading } from "@/components/shared/section-heading";
 import { site } from "@/data/site";
-import { fadeUp, slideInRight, staggerContainer, VIEWPORT } from "@/lib/motion";
+import { EASE, fadeUp, slideInRight, staggerContainer, VIEWPORT } from "@/lib/motion";
 
 /** Resolves icon names used by the contact channel list below. */
 const contactIcons: Record<string, LucideIcon> = {
@@ -137,10 +138,10 @@ export function Contact() {
               const Icon = contactIcons[channel.icon] ?? Mail;
               const inner = (
                 <>
-                  <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary">
+                  <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary transition-transform duration-300 group-hover:scale-110">
                     <Icon className="h-5 w-5" aria-hidden="true" />
                   </span>
-                  <span className="min-w-0">
+                  <span className="min-w-0 flex-1">
                     <span className="block text-xs font-medium uppercase tracking-wider text-muted-foreground">
                       {channel.label}
                     </span>
@@ -148,10 +149,16 @@ export function Contact() {
                       {channel.value}
                     </span>
                   </span>
+                  {channel.external ? (
+                    <ArrowUpRight
+                      aria-hidden="true"
+                      className="h-4 w-4 shrink-0 text-primary opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+                    />
+                  ) : null}
                 </>
               );
               const rowClasses =
-                "glass flex items-center gap-4 rounded-2xl p-4 transition-all duration-300 hover:-translate-y-1 hover:border-primary/30 hover:shadow-lg hover:shadow-primary/10";
+                "group glass flex items-center gap-4 rounded-2xl p-4 transition-all duration-300 hover:-translate-y-1 hover:border-primary/30 hover:shadow-lg hover:shadow-primary/10";
 
               return (
                 <motion.div key={channel.label} variants={fadeUp}>
@@ -182,7 +189,7 @@ export function Contact() {
             viewport={VIEWPORT}
             className="lg:col-span-3"
           >
-            <Card className="glass p-6 sm:p-8">
+            <Card className="glass p-6 focus-within:border-primary/40 focus-within:shadow-lg focus-within:shadow-primary/10 dark:focus-within:border-primary/40 sm:p-8">
               <form onSubmit={handleSubmit}>
                 {/* Honeypot — visually hidden, ignored by humans, catnip for bots */}
                 <div
@@ -255,7 +262,7 @@ export function Contact() {
                   type="submit"
                   variant="gradient"
                   size="lg"
-                  className="mt-6 w-full"
+                  className="shine mt-6 w-full"
                   disabled={status === "sending"}
                 >
                   {status === "sending" ? (
@@ -272,23 +279,39 @@ export function Contact() {
                 </Button>
 
                 <p role="status" aria-live="polite" className="mt-4 min-h-5 text-sm">
-                  {status === "success" ? (
-                    <span className="inline-flex items-center gap-2 text-emerald-600 dark:text-emerald-400">
-                      <CheckCircle2 className="h-4 w-4 shrink-0" aria-hidden="true" />
-                      Thanks for reaching out! I&apos;ll get back to you soon.
-                    </span>
-                  ) : status === "error" ? (
-                    <span className="text-red-600 dark:text-red-400">
-                      Something went wrong. Please email me directly at{" "}
-                      <a
-                        href={`mailto:${site.email}`}
-                        className="font-medium underline underline-offset-4 hover:text-red-500"
+                  <AnimatePresence mode="wait" initial={false}>
+                    {status === "success" ? (
+                      <motion.span
+                        key="success"
+                        initial={{ opacity: 0, y: 6 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -6 }}
+                        transition={{ duration: 0.3, ease: EASE }}
+                        className="inline-flex items-center gap-2 text-emerald-600 dark:text-emerald-400"
                       >
-                        {site.email}
-                      </a>
-                      .
-                    </span>
-                  ) : null}
+                        <CheckCircle2 className="h-4 w-4 shrink-0" aria-hidden="true" />
+                        Thanks for reaching out! I&apos;ll get back to you soon.
+                      </motion.span>
+                    ) : status === "error" ? (
+                      <motion.span
+                        key="error"
+                        initial={{ opacity: 0, y: 6 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -6 }}
+                        transition={{ duration: 0.3, ease: EASE }}
+                        className="inline-block text-red-600 dark:text-red-400"
+                      >
+                        Something went wrong. Please email me directly at{" "}
+                        <a
+                          href={`mailto:${site.email}`}
+                          className="font-medium underline underline-offset-4 hover:text-red-500"
+                        >
+                          {site.email}
+                        </a>
+                        .
+                      </motion.span>
+                    ) : null}
+                  </AnimatePresence>
                 </p>
               </form>
             </Card>

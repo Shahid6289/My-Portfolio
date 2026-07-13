@@ -44,7 +44,7 @@ export function Certifications() {
               className="group relative rounded-2xl border bg-card p-6 transition-all duration-300 hover:-translate-y-1 hover:border-primary/30 hover:shadow-lg hover:shadow-primary/10"
             >
               <div className="flex items-start gap-4">
-                <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-indigo-500 to-cyan-500 text-white shadow-md">
+                <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-indigo-500 to-cyan-500 text-white shadow-md transition-transform duration-300 group-hover:scale-110">
                   <Award aria-hidden="true" className="h-5 w-5" />
                 </div>
                 <div className="min-w-0 space-y-1">
@@ -58,9 +58,12 @@ export function Certifications() {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={`Verify certification: ${certification.name}`}
-                    className="ml-auto rounded-md p-1 text-muted-foreground transition-colors hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                    className="group/link ml-auto rounded-md p-1 text-muted-foreground transition-colors hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                   >
-                    <ExternalLink aria-hidden="true" className="h-4 w-4" />
+                    <ExternalLink
+                      aria-hidden="true"
+                      className="h-4 w-4 transition-transform duration-300 group-hover/link:-translate-y-0.5 group-hover/link:translate-x-0.5"
+                    />
                   </a>
                 ) : null}
               </div>

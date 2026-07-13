@@ -58,8 +58,14 @@ export function Projects() {
               <motion.article
                 key={project.title}
                 variants={fadeUp}
-                className="group flex flex-col overflow-hidden rounded-2xl border bg-card transition-all duration-300 hover:-translate-y-1 hover:border-primary/30 hover:shadow-lg hover:shadow-primary/10"
+                className="group relative flex flex-col overflow-hidden rounded-2xl border bg-card transition-all duration-300 hover:-translate-y-1 hover:border-primary/30 hover:shadow-lg hover:shadow-primary/10"
               >
+                {/* Gradient keyline across the top, revealed on hover */}
+                <div
+                  aria-hidden="true"
+                  className="absolute inset-x-0 top-0 z-10 h-px bg-gradient-brand opacity-0 transition-opacity duration-300 group-hover:opacity-60"
+                />
+
                 {/*
                   Image placeholder banner — swap this <div> for a real
                   screenshot (e.g. <Image src="/projects/….png" … />) when
@@ -67,14 +73,14 @@ export function Projects() {
                 */}
                 <div
                   className={cn(
-                    "relative flex h-44 items-center justify-center overflow-hidden bg-gradient-to-br",
+                    "shine relative flex h-44 items-center justify-center overflow-hidden bg-gradient-to-br",
                     project.gradient
                   )}
                 >
                   <div aria-hidden="true" className="absolute inset-0 bg-grid opacity-30" />
                   <Icon
                     aria-hidden="true"
-                    className="h-14 w-14 text-white/90 drop-shadow transition-transform duration-300 group-hover:scale-105"
+                    className="h-14 w-14 text-white/90 drop-shadow transition-[transform,filter] duration-300 group-hover:scale-105 group-hover:drop-shadow-[0_0_14px_rgba(255,255,255,0.35)]"
                   />
                 </div>
 
@@ -91,23 +97,33 @@ export function Projects() {
 
                   <ul className="space-y-2">
                     {project.features.map((feature) => (
-                      <li key={feature} className="flex items-start gap-2 text-sm">
+                      <li key={feature} className="group/item flex items-start gap-2 text-sm">
                         <CheckCircle2
                           aria-hidden="true"
-                          className="mt-0.5 h-4 w-4 shrink-0 text-primary"
+                          className="mt-0.5 h-4 w-4 shrink-0 text-primary transition-transform duration-300 group-hover/item:translate-x-0.5"
                         />
-                        <span className="text-muted-foreground">{feature}</span>
+                        <span className="text-muted-foreground transition-colors duration-300 group-hover/item:text-foreground">
+                          {feature}
+                        </span>
                       </li>
                     ))}
                   </ul>
 
-                  <div className="flex flex-wrap gap-2">
+                  <motion.div
+                    variants={staggerContainer(0.03)}
+                    className="flex flex-wrap gap-2"
+                  >
                     {project.techStack.map((tech) => (
-                      <Badge key={tech} variant="secondary">
-                        {tech}
-                      </Badge>
+                      <motion.span key={tech} variants={fadeUp} className="inline-flex">
+                        <Badge
+                          variant="secondary"
+                          className="transition-colors hover:border-primary/40 hover:text-primary"
+                        >
+                          {tech}
+                        </Badge>
+                      </motion.span>
                     ))}
-                  </div>
+                  </motion.div>
 
                   {/* Footer */}
                   <div className="mt-auto flex flex-wrap items-center gap-3 pt-1">

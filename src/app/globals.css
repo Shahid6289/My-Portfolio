@@ -154,4 +154,31 @@
   .glow-blob {
     @apply pointer-events-none absolute rounded-full blur-3xl;
   }
+
+  /*
+   * Light sweep on hover. Put .shine on any overflow-safe element; the
+   * sweep runs when it (or a parent .group) is hovered. Pure CSS.
+   */
+  .shine {
+    position: relative;
+    overflow: hidden;
+  }
+  .shine::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: linear-gradient(
+      105deg,
+      transparent 40%,
+      rgba(255, 255, 255, 0.16) 50%,
+      transparent 60%
+    );
+    transform: translateX(-120%);
+    transition: transform 0.7s ease;
+  }
+  .shine:hover::after,
+  .group:hover .shine::after {
+    transform: translateX(120%);
+  }
 }

@@ -85,7 +85,9 @@ export function Navbar() {
           aria-label={`${site.name} — back to top`}
           className="font-display text-2xl font-bold tracking-tight"
         >
-          <span className="text-gradient">SP.</span>
+          <span className="text-gradient transition duration-300 hover:drop-shadow-[0_0_10px_hsl(var(--primary)/0.5)]">
+            SP.
+          </span>
         </a>
 
         {/* Desktop nav */}
@@ -98,7 +100,7 @@ export function Navbar() {
                 href={item.href}
                 aria-current={isActive ? "location" : undefined}
                 className={cn(
-                  "relative rounded-md px-3 py-2 text-sm font-medium transition-colors",
+                  "relative rounded-md px-3 py-2 text-sm font-medium transition-colors hover:bg-accent/60",
                   isActive ? "text-primary" : "text-muted-foreground hover:text-foreground"
                 )}
               >
@@ -122,7 +124,7 @@ export function Navbar() {
             type="button"
             aria-label="Open command palette"
             onClick={openCommandPalette}
-            className="hidden h-9 items-center gap-1.5 rounded-full border border-border px-3 text-xs font-medium text-muted-foreground transition-colors hover:border-primary/30 hover:text-foreground sm:flex"
+            className="hidden h-9 items-center gap-1.5 rounded-full border border-border px-3 text-xs font-medium text-muted-foreground transition hover:border-primary/30 hover:text-foreground hover:shadow-sm sm:flex"
           >
             <CommandIcon className="h-3.5 w-3.5" aria-hidden />
             <span>K</span>
@@ -133,7 +135,7 @@ export function Navbar() {
           <a
             href={site.resumePath}
             download
-            className={cn(buttonVariants({ variant: "gradient", size: "sm" }), "hidden sm:inline-flex")}
+            className={cn(buttonVariants({ variant: "gradient", size: "sm" }), "shine hidden sm:inline-flex")}
           >
             Resume
           </a>

@@ -6,7 +6,7 @@ import { ChevronRight, GraduationCap, MapPin } from "lucide-react";
 import { SectionHeading } from "@/components/shared/section-heading";
 import { Badge } from "@/components/ui/badge";
 import { education } from "@/data/education";
-import { fadeUp, scaleIn, staggerContainer, VIEWPORT } from "@/lib/motion";
+import { EASE, fadeUp, scaleIn, staggerContainer, VIEWPORT } from "@/lib/motion";
 
 /**
  * Academic background rendered with the same timeline visual language as the
@@ -30,11 +30,16 @@ export function Education() {
         />
 
         <div className="relative mx-auto max-w-3xl">
-          {/* Timeline rail */}
-          <div
-            aria-hidden
-            className="absolute bottom-0 left-[5px] top-1 w-px bg-gradient-to-b from-indigo-500 via-violet-500 to-cyan-400/40"
-          />
+          {/* Timeline rail — draws in from the top on scroll into view */}
+          <div aria-hidden className="absolute bottom-0 left-[5px] top-1 w-px">
+            <motion.div
+              initial={{ scaleY: 0 }}
+              whileInView={{ scaleY: 1 }}
+              viewport={VIEWPORT}
+              transition={{ duration: 1.1, ease: EASE }}
+              className="h-full w-full origin-top bg-gradient-to-b from-indigo-500 via-violet-500 to-cyan-400/40"
+            />
+          </div>
 
           <motion.ol
             variants={staggerContainer(0.12)}
@@ -52,12 +57,12 @@ export function Education() {
 
                 <motion.article
                   variants={fadeUp}
-                  className="glass rounded-2xl p-6 transition-all duration-300 hover:-translate-y-1 hover:border-primary/30 hover:shadow-lg hover:shadow-primary/10"
+                  className="group glass rounded-2xl p-6 transition-all duration-300 hover:-translate-y-1 hover:border-primary/30 hover:shadow-lg hover:shadow-primary/10"
                 >
                   <div className="flex flex-wrap items-start justify-between gap-3">
                     <div className="flex items-start gap-4">
                       {/* Icon chip */}
-                      <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-indigo-500/15 via-violet-500/15 to-cyan-400/15 text-primary">
+                      <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-indigo-500/15 via-violet-500/15 to-cyan-400/15 text-primary transition-transform duration-300 group-hover:-rotate-3 group-hover:scale-110">
                         <GraduationCap className="h-5 w-5" aria-hidden />
                       </div>
                       <div>
@@ -70,7 +75,10 @@ export function Education() {
                         </p>
                       </div>
                     </div>
-                    <Badge variant="glow" className="shrink-0">
+                    <Badge
+                      variant="glow"
+                      className="shrink-0 transition-colors hover:border-primary/40"
+                    >
                       {entry.duration}
                     </Badge>
                   </div>
@@ -84,9 +92,12 @@ export function Education() {
                   {entry.highlights?.length ? (
                     <ul className="mt-4 space-y-2.5">
                       {entry.highlights.map((highlight) => (
-                        <li key={highlight} className="flex gap-2">
-                          <ChevronRight className="mt-1 h-4 w-4 shrink-0 text-primary" aria-hidden />
-                          <span className="text-sm leading-relaxed text-muted-foreground">
+                        <li key={highlight} className="group/item flex gap-2">
+                          <ChevronRight
+                            className="mt-1 h-4 w-4 shrink-0 text-primary transition-transform duration-300 group-hover/item:translate-x-0.5"
+                            aria-hidden
+                          />
+                          <span className="text-sm leading-relaxed text-muted-foreground transition-colors duration-300 group-hover/item:text-foreground">
                             {highlight}
                           </span>
                         </li>

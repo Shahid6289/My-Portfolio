@@ -198,7 +198,7 @@ export function Hero() {
           >
             <motion.div
               variants={fadeUp}
-              className="glass inline-flex items-center gap-2.5 rounded-full px-4 py-1.5 text-sm font-medium"
+              className="glass inline-flex items-center gap-2.5 rounded-full px-4 py-1.5 text-sm font-medium transition-colors duration-300 hover:border-primary/30"
             >
               <span className="relative flex h-2 w-2">
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
@@ -233,14 +233,14 @@ export function Hero() {
               <a
                 href={site.resumePath}
                 download
-                className={buttonVariants({ variant: "gradient", size: "lg" })}
+                className={cn(buttonVariants({ variant: "gradient", size: "lg" }), "shine")}
               >
                 <Download aria-hidden="true" />
                 Download Resume
               </a>
               <a
                 href="#contact"
-                className={buttonVariants({ variant: "outline", size: "lg" })}
+                className={cn(buttonVariants({ variant: "outline", size: "lg" }), "shine")}
               >
                 <Mail aria-hidden="true" />
                 Contact Me
@@ -254,7 +254,7 @@ export function Hero() {
                   href={href}
                   aria-label={label}
                   {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-                  className="glass rounded-full p-3 text-muted-foreground transition-all duration-300 hover:-translate-y-0.5 hover:text-primary"
+                  className="glass rounded-full p-3 text-muted-foreground transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/40 hover:text-primary hover:shadow-[0_0_16px_-4px_hsl(var(--primary)/0.5)]"
                 >
                   <Icon className="h-5 w-5" aria-hidden="true" />
                 </a>
