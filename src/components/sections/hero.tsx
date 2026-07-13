@@ -4,7 +4,6 @@ import { motion, useReducedMotion } from "framer-motion";
 import {
   BadgeCheck,
   Bot,
-  Bug,
   Download,
   Github,
   Linkedin,
@@ -75,154 +74,172 @@ const floatingChips: FloatingChip[] = [
 const CHIP_ORBIT_RADIUS = 58;
 
 /**
- * Radar bezel tick coordinates (r 86 → 93, every 30°), precomputed as
- * literals: computing Math.sin/cos at render time causes SSR hydration
- * mismatches — Node's and the browser's trig differ in the last float digit.
+ * Quality-core geometry, precomputed as literals: computing Math.sin/cos at
+ * render time causes SSR hydration mismatches — Node's and the browser's
+ * trig differ in the last float digit.
+ *
+ * Inner trio: r=45, three 80° arcs with 40° gaps.
+ * Middle pair: r=62, two 150° arcs with 30° gaps.
+ * Bezel ticks: r=80, four 16° blocks at the cardinal points.
  */
-const RADAR_TICKS = [
-  [100, 14, 100, 7],
-  [143, 25.52, 146.5, 19.46],
-  [174.48, 57, 180.54, 53.5],
-  [186, 100, 193, 100],
-  [174.48, 143, 180.54, 146.5],
-  [143, 174.48, 146.5, 180.54],
-  [100, 186, 100, 193],
-  [57, 174.48, 53.5, 180.54],
-  [25.52, 143, 19.46, 146.5],
-  [14, 100, 7, 100],
-  [25.52, 57, 19.46, 53.5],
-  [57, 25.52, 53.5, 19.46],
+const ARC_SET_INNER = [
+  "M100 55 A45 45 0 0 1 144.32 92.19",
+  "M138.97 122.5 A45 45 0 0 1 84.61 142.28",
+  "M61.03 122.5 A45 45 0 0 1 71.08 65.53",
+] as const;
+
+const ARC_SET_MIDDLE = [
+  "M100 38 A62 62 0 0 1 131 153.69",
+  "M100 162 A62 62 0 0 1 69 46.31",
+] as const;
+
+const TICK_BLOCKS = [
+  "M88.87 20.78 A80 80 0 0 1 111.13 20.78",
+  "M179.22 88.87 A80 80 0 0 1 179.22 111.13",
+  "M111.13 179.22 A80 80 0 0 1 88.87 179.22",
+  "M20.78 111.13 A80 80 0 0 1 20.78 88.87",
 ] as const;
 
 /**
- * Sweep afterglow: six 10° slices trailing the beam on the r=90 arc, with
- * smoothly fading opacity — reads like a phosphor trail instead of a solid
- * cone. Precomputed literals for the same hydration-safety reason as the
- * ticks (no render-time trig).
+ * Animated centrepiece for the portrait circle: a sci-fi "quality core" —
+ * concentric arc segments spinning at different speeds and directions
+ * around a pulsing energy core, energy ripples radiating outward, orbiting
+ * satellite dots, and a checkmark drawn into the middle ("all gates
+ * green"). Hand-rolled SVG with literal path coordinates (render-time trig
+ * causes SSR hydration mismatches). Rotations freeze under reduced motion
+ * via the global CSS rule; ripples and the check draw-in branch on
+ * useReducedMotion.
  */
-const SWEEP_SECTORS = [
-  { d: "M100 100 L84.37 11.37 A90 90 0 0 1 100 10 Z", opacity: 0.24 },
-  { d: "M100 100 L69.22 15.42 A90 90 0 0 1 84.37 11.37 Z", opacity: 0.17 },
-  { d: "M100 100 L55 22.06 A90 90 0 0 1 69.22 15.42 Z", opacity: 0.12 },
-  { d: "M100 100 L42.15 31.06 A90 90 0 0 1 55 22.06 Z", opacity: 0.08 },
-  { d: "M100 100 L31.06 42.15 A90 90 0 0 1 42.15 31.06 Z", opacity: 0.05 },
-  { d: "M100 100 L22.06 55 A90 90 0 0 1 31.06 42.15 Z", opacity: 0.025 },
-] as const;
-
-/**
- * Animated centrepiece for the portrait circle: a bug-hunting radar scope —
- * concentric rings and a crosshair, a sweep beam revolving over them, blips
- * pulsing as they're "detected", and a bug glyph caught dead-centre. A
- * hand-rolled, Lottie-style motion graphic with no extra runtime. Only
- * `animate`/`transition` branch on reduced motion (never the markup), so
- * SSR and client stay in sync.
- */
-function BugRadar() {
+function QualityCore() {
   const reduce = useReducedMotion();
   return (
     <div className="relative" aria-hidden="true">
       <svg viewBox="0 0 200 200" className="h-52 w-52 sm:h-72 sm:w-72">
         <defs>
-          <linearGradient id="radar-gradient" x1="0" y1="0" x2="1" y2="1">
+          <linearGradient id="core-gradient" x1="0" y1="0" x2="1" y2="1">
             <stop offset="0%" stopColor="#6366f1" />
             <stop offset="50%" stopColor="#8b5cf6" />
             <stop offset="100%" stopColor="#22d3ee" />
           </linearGradient>
-          {/* Soft depth shading inside the scope */}
-          <radialGradient id="radar-bg" cx="0.5" cy="0.5" r="0.5">
-            <stop offset="0%" stopColor="#6366f1" stopOpacity="0.14" />
-            <stop offset="65%" stopColor="#6366f1" stopOpacity="0.04" />
+          <radialGradient id="core-glow" cx="0.5" cy="0.5" r="0.5">
+            <stop offset="0%" stopColor="#8b5cf6" stopOpacity="0.55" />
+            <stop offset="60%" stopColor="#6366f1" stopOpacity="0.18" />
             <stop offset="100%" stopColor="#6366f1" stopOpacity="0" />
           </radialGradient>
         </defs>
 
-        <circle cx="100" cy="100" r="95" fill="url(#radar-bg)" />
+        {/* Ambient depth + inner reference ring */}
+        <circle cx="100" cy="100" r="95" fill="url(#core-glow)" opacity="0.35" />
+        <circle
+          cx="100"
+          cy="100"
+          r="30"
+          fill="none"
+          stroke="url(#core-gradient)"
+          strokeWidth="1"
+          opacity="0.3"
+        />
 
-        {/* Scope rings + crosshair */}
-        {[40, 66, 90].map((r, i) => (
-          <circle
-            key={r}
+        {/* Energy ripples pulsing out of the core */}
+        {[0, 1.3].map((delay) => (
+          <motion.circle
+            key={delay}
             cx="100"
             cy="100"
-            r={r}
             fill="none"
-            stroke="url(#radar-gradient)"
+            stroke="url(#core-gradient)"
             strokeWidth="1.5"
-            strokeDasharray={i === 2 ? "3 6" : undefined}
-            opacity={0.42 - i * 0.1}
-          />
-        ))}
-        <line x1="100" y1="10" x2="100" y2="190" stroke="url(#radar-gradient)" opacity="0.12" />
-        <line x1="10" y1="100" x2="190" y2="100" stroke="url(#radar-gradient)" opacity="0.12" />
-
-        {/* Instrument tick marks every 30° around the outer ring */}
-        {RADAR_TICKS.map(([x1, y1, x2, y2]) => (
-          <line
-            key={`${x1}-${y1}`}
-            x1={x1}
-            y1={y1}
-            x2={x2}
-            y2={y2}
-            stroke="url(#radar-gradient)"
-            strokeWidth="1.5"
-            opacity="0.35"
-          />
-        ))}
-
-        {/*
-          Sweep beam — CSS rotation (spin-slow keyframes) around the scope
-          centre; transform-box view-box maps the origin to viewBox units.
-          Three trailing sectors fade the beam out like a real radar
-          afterglow, and a glowing dot rides the beam tip. The global
-          reduced-motion rule freezes the rotation automatically.
-        */}
-        <g
-          className="animate-[spin-slow_6s_linear_infinite]"
-          style={{ transformBox: "view-box", transformOrigin: "100px 100px" }}
-        >
-          {SWEEP_SECTORS.map(({ d, opacity }) => (
-            <path key={d} d={d} fill="url(#radar-gradient)" opacity={opacity} />
-          ))}
-          <line
-            x1="100"
-            y1="100"
-            x2="100"
-            y2="10"
-            stroke="url(#radar-gradient)"
-            strokeWidth="1.5"
-            opacity="0.75"
-          />
-        </g>
-
-        {/* Detection blips lighting up around the scope */}
-        {[
-          { cx: 160, cy: 74, fill: "#22d3ee", delay: 0 },
-          { cx: 56, cy: 140, fill: "#8b5cf6", delay: 1.6 },
-          { cx: 132, cy: 152, fill: "#6366f1", delay: 3.1 },
-        ].map(({ cx, cy, fill, delay }) => (
-          <motion.circle
-            key={`${cx}-${cy}`}
-            cx={cx}
-            cy={cy}
-            fill={fill}
-            initial={{ r: 2.5, opacity: 0.35 }}
-            animate={reduce ? { r: 2.5, opacity: 0.5 } : { r: [2, 3.5, 2], opacity: [0.15, 0.85, 0.15] }}
+            initial={{ r: 18, opacity: 0.4 }}
+            animate={reduce ? { r: 24, opacity: 0.15 } : { r: [18, 40], opacity: [0.35, 0] }}
             transition={
-              reduce ? { duration: 0 } : { duration: 5, delay, repeat: Infinity, ease: "easeInOut" }
+              reduce ? { duration: 0 } : { duration: 2.6, delay, repeat: Infinity, ease: "easeOut" }
             }
           />
         ))}
-      </svg>
 
-      {/* The catch: a bug locked in the crosshair */}
-      <motion.span
-        className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-primary"
-        initial={{ opacity: 0, scale: 0.5 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: reduce ? 0 : 0.5, delay: reduce ? 0 : 0.4, ease: "easeOut" }}
-      >
-        <Bug className="h-11 w-11 sm:h-14 sm:w-14" strokeWidth={1.75} />
-      </motion.span>
+        {/* Inner arc trio — fast clockwise, with a cyan satellite riding along */}
+        <g
+          className="animate-[spin-slow_8s_linear_infinite]"
+          style={{ transformBox: "view-box", transformOrigin: "100px 100px" }}
+        >
+          {ARC_SET_INNER.map((d) => (
+            <path
+              key={d}
+              d={d}
+              fill="none"
+              stroke="url(#core-gradient)"
+              strokeWidth="2.5"
+              strokeLinecap="round"
+              opacity="0.75"
+            />
+          ))}
+          <circle cx="100" cy="55" r="2.5" fill="#22d3ee" />
+        </g>
+
+        {/* Middle arc pair — slower, counter-rotating, violet satellite */}
+        <g
+          className="animate-[spin-slow_14s_linear_infinite]"
+          style={{
+            transformBox: "view-box",
+            transformOrigin: "100px 100px",
+            animationDirection: "reverse",
+          }}
+        >
+          {ARC_SET_MIDDLE.map((d) => (
+            <path
+              key={d}
+              d={d}
+              fill="none"
+              stroke="url(#core-gradient)"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+              opacity="0.45"
+            />
+          ))}
+          <circle cx="100" cy="162" r="2" fill="#8b5cf6" />
+        </g>
+
+        {/* Outer bezel: faint dashed ring + four tick blocks drifting slowly */}
+        <circle
+          cx="100"
+          cy="100"
+          r="80"
+          fill="none"
+          stroke="url(#core-gradient)"
+          strokeWidth="1"
+          strokeDasharray="2 7"
+          opacity="0.3"
+        />
+        <g
+          className="animate-[spin-slow_30s_linear_infinite]"
+          style={{ transformBox: "view-box", transformOrigin: "100px 100px" }}
+        >
+          {TICK_BLOCKS.map((d) => (
+            <path
+              key={d}
+              d={d}
+              fill="none"
+              stroke="url(#core-gradient)"
+              strokeWidth="3.5"
+              opacity="0.6"
+            />
+          ))}
+        </g>
+
+        {/* The core: glow + the verified check drawing itself in */}
+        <circle cx="100" cy="100" r="22" fill="url(#core-glow)" />
+        <motion.path
+          d="M89 100 L97 108 L112 91"
+          fill="none"
+          stroke="url(#core-gradient)"
+          strokeWidth="5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          initial={{ pathLength: 0, opacity: 0 }}
+          animate={{ pathLength: 1, opacity: 1 }}
+          transition={{ duration: reduce ? 0 : 0.8, delay: reduce ? 0 : 0.5, ease: "easeInOut" }}
+        />
+      </svg>
     </div>
   );
 }
@@ -386,7 +403,7 @@ export function Hero() {
                        className="rounded-full object-cover" />
               */}
               <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 rounded-full border border-border bg-card">
-                <BugRadar />
+                <QualityCore />
                 <span className="flex items-center gap-1.5 rounded-full border border-primary/20 bg-primary/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-primary">
                   <BadgeCheck className="h-3.5 w-3.5" aria-hidden="true" />
                   SDET · QA Engineer
