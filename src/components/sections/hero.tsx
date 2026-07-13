@@ -75,6 +75,26 @@ const floatingChips: FloatingChip[] = [
 const CHIP_ORBIT_RADIUS = 58;
 
 /**
+ * Radar bezel tick coordinates (r 86 → 93, every 30°), precomputed as
+ * literals: computing Math.sin/cos at render time causes SSR hydration
+ * mismatches — Node's and the browser's trig differ in the last float digit.
+ */
+const RADAR_TICKS = [
+  [100, 14, 100, 7],
+  [143, 25.52, 146.5, 19.46],
+  [174.48, 57, 180.54, 53.5],
+  [186, 100, 193, 100],
+  [174.48, 143, 180.54, 146.5],
+  [143, 174.48, 146.5, 180.54],
+  [100, 186, 100, 193],
+  [57, 174.48, 53.5, 180.54],
+  [25.52, 143, 19.46, 146.5],
+  [14, 100, 7, 100],
+  [25.52, 57, 19.46, 53.5],
+  [57, 25.52, 53.5, 19.46],
+] as const;
+
+/**
  * Animated centrepiece for the portrait circle: a bug-hunting radar scope —
  * concentric rings and a crosshair, a sweep beam revolving over them, blips
  * pulsing as they're "detected", and a bug glyph caught dead-centre. A
@@ -121,21 +141,18 @@ function BugRadar() {
         <line x1="10" y1="100" x2="190" y2="100" stroke="url(#radar-gradient)" opacity="0.12" />
 
         {/* Instrument tick marks every 30° around the outer ring */}
-        {Array.from({ length: 12 }, (_, i) => {
-          const angle = ((i * 30 - 90) * Math.PI) / 180;
-          return (
-            <line
-              key={i}
-              x1={100 + 86 * Math.cos(angle)}
-              y1={100 + 86 * Math.sin(angle)}
-              x2={100 + 93 * Math.cos(angle)}
-              y2={100 + 93 * Math.sin(angle)}
-              stroke="url(#radar-gradient)"
-              strokeWidth="1.5"
-              opacity="0.35"
-            />
-          );
-        })}
+        {RADAR_TICKS.map(([x1, y1, x2, y2]) => (
+          <line
+            key={`${x1}-${y1}`}
+            x1={x1}
+            y1={y1}
+            x2={x2}
+            y2={y2}
+            stroke="url(#radar-gradient)"
+            strokeWidth="1.5"
+            opacity="0.35"
+          />
+        ))}
 
         {/*
           Sweep beam — CSS rotation (spin-slow keyframes) around the scope
@@ -388,8 +405,10 @@ export function Hero() {
                 {floatingChips.map(({ label, brand, icon: Icon }, index) => {
                   const angle =
                     (index / floatingChips.length) * 2 * Math.PI - Math.PI / 2;
-                  const left = 50 + CHIP_ORBIT_RADIUS * Math.cos(angle);
-                  const top = 50 + CHIP_ORBIT_RADIUS * Math.sin(angle);
+                  // Rounded to 2dp: raw trig floats differ between Node and
+                  // the browser and would mismatch in the style attribute.
+                  const left = +(50 + CHIP_ORBIT_RADIUS * Math.cos(angle)).toFixed(2);
+                  const top = +(50 + CHIP_ORBIT_RADIUS * Math.sin(angle)).toFixed(2);
                   return (
                     <motion.div
                       key={label}

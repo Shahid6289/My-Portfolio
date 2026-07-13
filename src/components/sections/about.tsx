@@ -3,7 +3,6 @@
 import { motion } from "framer-motion";
 import { Briefcase, Mail, MapPin } from "lucide-react";
 
-import { CountUp } from "@/components/shared/count-up";
 import { SectionHeading } from "@/components/shared/section-heading";
 import { about } from "@/data/about";
 import { site } from "@/data/site";
@@ -79,32 +78,71 @@ export function About() {
             </motion.div>
           </motion.div>
 
-          {/* Stats */}
+          {/*
+            Terminal card — a green pipeline, the SDET's favourite sight.
+            Illustrative output; the totals mirror the resume's 200+ automated
+            cases. (The headline stats moved to the hero's impact strip.)
+          */}
           <motion.div
-            variants={staggerContainer(0.1)}
+            variants={scaleIn}
             initial="hidden"
             whileInView="visible"
             viewport={VIEWPORT}
-            className="grid grid-cols-2 content-start gap-4 lg:col-span-2"
+            className="content-start lg:col-span-2"
           >
-            {about.stats.map((stat) => (
+            <div className="group overflow-hidden rounded-2xl border border-border bg-card shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-primary/30 hover:shadow-lg hover:shadow-primary/10">
+              {/* Title bar */}
+              <div className="flex items-center gap-2 border-b border-border/60 bg-muted/40 px-4 py-3">
+                <span className="h-2.5 w-2.5 rounded-full bg-rose-500/80" aria-hidden="true" />
+                <span className="h-2.5 w-2.5 rounded-full bg-amber-500/80" aria-hidden="true" />
+                <span className="h-2.5 w-2.5 rounded-full bg-emerald-500/80" aria-hidden="true" />
+                <span className="ml-2 text-xs font-medium text-muted-foreground">
+                  quality-pipeline — zsh
+                </span>
+              </div>
+
+              {/* Test run, revealed line by line */}
               <motion.div
-                key={stat.label}
-                variants={scaleIn}
-                className="group relative flex flex-col justify-center gap-2 overflow-hidden rounded-2xl border border-border bg-card p-6 text-center shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-primary/30 hover:shadow-lg hover:shadow-primary/10"
+                variants={staggerContainer(0.14, 0.2)}
+                initial="hidden"
+                whileInView="visible"
+                viewport={VIEWPORT}
+                className="space-y-1.5 p-5 font-mono text-[13px] leading-relaxed"
               >
-                <div
-                  className="pointer-events-none absolute -right-4 -top-4 h-16 w-16 rounded-full bg-primary/10 opacity-0 blur-2xl transition-opacity duration-300 group-hover:opacity-100"
-                  aria-hidden="true"
-                />
-                <span className="text-gradient font-display text-3xl font-bold tracking-tight sm:text-4xl">
-                  <CountUp value={stat.value} />
-                </span>
-                <span className="text-xs leading-snug text-muted-foreground sm:text-sm">
-                  {stat.label}
-                </span>
+                <motion.p variants={fadeUp}>
+                  <span className="text-primary">$</span> npx playwright test
+                </motion.p>
+                <motion.p variants={fadeUp} className="text-muted-foreground">
+                  Running 200 tests using 4 workers…
+                </motion.p>
+                <motion.p variants={fadeUp}>
+                  <span className="text-emerald-500">✓</span> auth.spec.ts{" "}
+                  <span className="text-muted-foreground">(24 passed)</span>
+                </motion.p>
+                <motion.p variants={fadeUp}>
+                  <span className="text-emerald-500">✓</span> payments.spec.ts{" "}
+                  <span className="text-muted-foreground">(31 passed)</span>
+                </motion.p>
+                <motion.p variants={fadeUp}>
+                  <span className="text-emerald-500">✓</span> api-contracts.spec.ts{" "}
+                  <span className="text-muted-foreground">(58 passed)</span>
+                </motion.p>
+                <motion.p variants={fadeUp}>
+                  <span className="text-emerald-500">✓</span> db-assertions.spec.ts{" "}
+                  <span className="text-muted-foreground">(87 passed)</span>
+                </motion.p>
+                <motion.p variants={fadeUp} className="pt-1 font-semibold text-emerald-500">
+                  200 passed <span className="font-normal text-muted-foreground">(3m 42s)</span>
+                </motion.p>
+                <motion.p variants={fadeUp} className="pt-2">
+                  <span className="text-primary">$</span> All quality gates green — ship it
+                  <span
+                    className="ml-1 inline-block h-3.5 w-[7px] animate-blink bg-primary align-middle"
+                    aria-hidden="true"
+                  />
+                </motion.p>
               </motion.div>
-            ))}
+            </div>
           </motion.div>
         </div>
       </div>
