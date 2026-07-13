@@ -25,7 +25,9 @@ import {
 
 import { ParticlesBackground } from "@/components/effects/particles";
 import { Typewriter } from "@/components/effects/typewriter";
+import { CountUp } from "@/components/shared/count-up";
 import { buttonVariants } from "@/components/ui/button";
+import { about } from "@/data/about";
 import { site } from "@/data/site";
 import { fadeUp, scaleIn, staggerContainer, VIEWPORT } from "@/lib/motion";
 import { cn } from "@/lib/utils";
@@ -84,21 +86,25 @@ function BugRadar() {
   const reduce = useReducedMotion();
   return (
     <div className="relative" aria-hidden="true">
-      <svg viewBox="0 0 200 200" className="h-44 w-44 sm:h-60 sm:w-60">
+      <svg viewBox="0 0 200 200" className="h-52 w-52 sm:h-72 sm:w-72">
         <defs>
           <linearGradient id="radar-gradient" x1="0" y1="0" x2="1" y2="1">
             <stop offset="0%" stopColor="#6366f1" />
             <stop offset="50%" stopColor="#8b5cf6" />
             <stop offset="100%" stopColor="#22d3ee" />
           </linearGradient>
-          <linearGradient id="radar-sweep" x1="0" y1="0" x2="1" y2="0">
-            <stop offset="0%" stopColor="#22d3ee" stopOpacity="0.5" />
-            <stop offset="100%" stopColor="#8b5cf6" stopOpacity="0" />
-          </linearGradient>
+          {/* Soft depth shading inside the scope */}
+          <radialGradient id="radar-bg" cx="0.5" cy="0.5" r="0.5">
+            <stop offset="0%" stopColor="#6366f1" stopOpacity="0.14" />
+            <stop offset="65%" stopColor="#6366f1" stopOpacity="0.04" />
+            <stop offset="100%" stopColor="#6366f1" stopOpacity="0" />
+          </radialGradient>
         </defs>
 
+        <circle cx="100" cy="100" r="95" fill="url(#radar-bg)" />
+
         {/* Scope rings + crosshair */}
-        {[34, 58, 82].map((r, i) => (
+        {[40, 66, 90].map((r, i) => (
           <circle
             key={r}
             cx="100"
@@ -108,30 +114,73 @@ function BugRadar() {
             stroke="url(#radar-gradient)"
             strokeWidth="1.5"
             strokeDasharray={i === 2 ? "3 6" : undefined}
-            opacity={0.4 - i * 0.09}
+            opacity={0.42 - i * 0.1}
           />
         ))}
-        <line x1="100" y1="14" x2="100" y2="186" stroke="url(#radar-gradient)" opacity="0.14" />
-        <line x1="14" y1="100" x2="186" y2="100" stroke="url(#radar-gradient)" opacity="0.14" />
+        <line x1="100" y1="10" x2="100" y2="190" stroke="url(#radar-gradient)" opacity="0.12" />
+        <line x1="10" y1="100" x2="190" y2="100" stroke="url(#radar-gradient)" opacity="0.12" />
+
+        {/* Instrument tick marks every 30° around the outer ring */}
+        {Array.from({ length: 12 }, (_, i) => {
+          const angle = ((i * 30 - 90) * Math.PI) / 180;
+          return (
+            <line
+              key={i}
+              x1={100 + 86 * Math.cos(angle)}
+              y1={100 + 86 * Math.sin(angle)}
+              x2={100 + 93 * Math.cos(angle)}
+              y2={100 + 93 * Math.sin(angle)}
+              stroke="url(#radar-gradient)"
+              strokeWidth="1.5"
+              opacity="0.35"
+            />
+          );
+        })}
 
         {/*
           Sweep beam — CSS rotation (spin-slow keyframes) around the scope
           centre; transform-box view-box maps the origin to viewBox units.
-          The global reduced-motion rule freezes it automatically.
+          Three trailing sectors fade the beam out like a real radar
+          afterglow, and a glowing dot rides the beam tip. The global
+          reduced-motion rule freezes the rotation automatically.
         */}
         <g
-          className="animate-[spin-slow_5s_linear_infinite]"
+          className="animate-[spin-slow_6s_linear_infinite]"
           style={{ transformBox: "view-box", transformOrigin: "100px 100px" }}
         >
-          <path d="M100 100 L100 18 A82 82 0 0 1 141 29 Z" fill="url(#radar-sweep)" />
-          <line x1="100" y1="100" x2="100" y2="18" stroke="url(#radar-gradient)" strokeWidth="2" opacity="0.7" />
+          <path
+            d="M100 100 L69.22 15.42 A90 90 0 0 1 100 10 Z"
+            fill="url(#radar-gradient)"
+            opacity="0.28"
+          />
+          <path
+            d="M100 100 L42.15 31.06 A90 90 0 0 1 69.22 15.42 Z"
+            fill="url(#radar-gradient)"
+            opacity="0.13"
+          />
+          <path
+            d="M100 100 L22.06 55 A90 90 0 0 1 42.15 31.06 Z"
+            fill="url(#radar-gradient)"
+            opacity="0.05"
+          />
+          <line
+            x1="100"
+            y1="100"
+            x2="100"
+            y2="10"
+            stroke="url(#radar-gradient)"
+            strokeWidth="2"
+            opacity="0.8"
+          />
+          <circle cx="100" cy="10" r="6.5" fill="#22d3ee" opacity="0.25" />
+          <circle cx="100" cy="10" r="3" fill="#22d3ee" opacity="0.9" />
         </g>
 
         {/* Detection blips lighting up around the scope */}
         {[
-          { cx: 146, cy: 72, fill: "#22d3ee", delay: 0 },
-          { cx: 63, cy: 138, fill: "#8b5cf6", delay: 1.6 },
-          { cx: 128, cy: 142, fill: "#6366f1", delay: 3.1 },
+          { cx: 160, cy: 74, fill: "#22d3ee", delay: 0 },
+          { cx: 56, cy: 140, fill: "#8b5cf6", delay: 1.6 },
+          { cx: 132, cy: 152, fill: "#6366f1", delay: 3.1 },
         ].map(({ cx, cy, fill, delay }) => (
           <motion.circle
             key={`${cx}-${cy}`}
@@ -154,7 +203,7 @@ function BugRadar() {
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: reduce ? 0 : 0.5, delay: reduce ? 0 : 0.4, ease: "easeOut" }}
       >
-        <Bug className="h-10 w-10 sm:h-12 sm:w-12" strokeWidth={1.75} />
+        <Bug className="h-11 w-11 sm:h-14 sm:w-14" strokeWidth={1.75} />
       </motion.span>
     </div>
   );
@@ -215,11 +264,16 @@ export function Hero() {
               <span className="text-gradient block">{site.name}</span>
             </motion.h1>
 
+            {/* Terminal-style role line — the gradient chevron stays put, so
+                the line never looks empty between typing cycles */}
             <motion.div
               variants={fadeUp}
-              className="min-h-[3.5rem] text-xl text-muted-foreground sm:min-h-[2rem] sm:text-2xl"
+              className="flex min-h-[3.5rem] items-baseline justify-center gap-2.5 font-display text-xl font-semibold sm:min-h-[2.25rem] sm:text-2xl lg:justify-start"
             >
-              <Typewriter phrases={site.typingRoles} />
+              <span aria-hidden="true" className="text-gradient select-none">
+                ▸
+              </span>
+              <Typewriter phrases={site.typingRoles} className="text-foreground/90" />
             </motion.div>
 
             <motion.p variants={fadeUp} className="max-w-xl text-muted-foreground">
@@ -258,6 +312,23 @@ export function Hero() {
                 >
                   <Icon className="h-5 w-5" aria-hidden="true" />
                 </a>
+              ))}
+            </motion.div>
+
+            {/* Impact strip — the three headline numbers, counted up on view */}
+            <motion.div
+              variants={fadeUp}
+              className="mt-2 grid w-full max-w-xl grid-cols-3 gap-4 border-t border-border/40 pt-6 sm:gap-6"
+            >
+              {about.stats.slice(0, 3).map((stat) => (
+                <div key={stat.label} className="text-center lg:text-left">
+                  <div className="text-gradient font-display text-2xl font-bold sm:text-3xl">
+                    <CountUp value={stat.value} />
+                  </div>
+                  <div className="mt-1 text-xs leading-snug text-muted-foreground">
+                    {stat.label}
+                  </div>
+                </div>
               ))}
             </motion.div>
           </motion.div>
