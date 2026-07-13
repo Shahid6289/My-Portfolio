@@ -45,7 +45,7 @@ export function LoadingScreen() {
           className="fixed inset-0 z-[80] flex items-center justify-center bg-background"
         >
           <div className="relative flex flex-col items-center gap-4">
-            <div className="glow-blob left-1/2 top-1/2 h-40 w-40 -translate-x-1/2 -translate-y-1/2 bg-emerald-500/20" />
+            <div className="glow-blob left-1/2 top-1/2 h-40 w-40 -translate-x-1/2 -translate-y-1/2 bg-indigo-500/20" />
             <motion.span
               initial={{ opacity: 0 }}
               animate={{ opacity: 1, scale: [0.85, 1.08, 1] }}

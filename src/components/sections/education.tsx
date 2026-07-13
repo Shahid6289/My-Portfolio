@@ -20,7 +20,7 @@ export function Education() {
         aria-hidden
         className="absolute inset-0 bg-grid [mask-image:radial-gradient(ellipse_60%_50%_at_50%_40%,black,transparent)]"
       />
-      <div aria-hidden className="glow-blob right-1/4 top-10 h-72 w-72 bg-teal-500/15" />
+      <div aria-hidden className="glow-blob right-1/4 top-10 h-72 w-72 bg-violet-500/15" />
 
       <div className="container relative">
         <SectionHeading
@@ -33,7 +33,7 @@ export function Education() {
           {/* Timeline rail */}
           <div
             aria-hidden
-            className="absolute bottom-0 left-[5px] top-1 w-px bg-gradient-to-b from-emerald-500 via-teal-500 to-cyan-400/40"
+            className="absolute bottom-0 left-[5px] top-1 w-px bg-gradient-to-b from-indigo-500 via-violet-500 to-cyan-400/40"
           />
 
           <motion.ol
@@ -57,7 +57,7 @@ export function Education() {
                   <div className="flex flex-wrap items-start justify-between gap-3">
                     <div className="flex items-start gap-4">
                       {/* Icon chip */}
-                      <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-emerald-500/15 via-teal-500/15 to-cyan-400/15 text-primary">
+                      <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-indigo-500/15 via-violet-500/15 to-cyan-400/15 text-primary">
                         <GraduationCap className="h-5 w-5" aria-hidden />
                       </div>
                       <div>

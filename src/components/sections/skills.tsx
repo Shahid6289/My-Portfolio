@@ -65,7 +65,7 @@ export function Skills() {
               <motion.div key={category.title} variants={fadeUp}>
                 <Card className="h-full hover:-translate-y-1 hover:border-primary/30 hover:shadow-lg hover:shadow-primary/10">
                   <CardHeader className="flex-row items-center gap-3 space-y-0">
-                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-emerald-500/15 to-cyan-500/15 text-primary">
+                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-indigo-500/15 to-cyan-500/15 text-primary">
                       <Icon className="h-5 w-5" aria-hidden="true" />
                     </div>
                     <CardTitle>{category.title}</CardTitle>
