@@ -18,6 +18,25 @@ export interface SkillCategory {
   skills: string[];
 }
 
+/**
+ * Testing types covered (straight from the resume's "Testing Types" line,
+ * plus OWASP security work from the CV) — rendered as a highlight strip
+ * above the skill grid. These are the exact keywords recruiters and ATS
+ * systems scan for.
+ */
+export const testingTypes = [
+  "Manual Testing",
+  "Functional Testing",
+  "Regression Testing",
+  "Smoke Testing",
+  "Sanity Testing",
+  "UI Testing",
+  "API Testing",
+  "Mobile Testing",
+  "Performance & Load Testing",
+  "Security Testing (OWASP)",
+] as const;
+
 export const skillCategories: SkillCategory[] = [
   {
     title: "Programming Languages",

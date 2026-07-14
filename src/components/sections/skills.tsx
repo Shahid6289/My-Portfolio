@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import {
+  CheckCircle2,
   Cloud,
   Code2,
   Database,
@@ -17,7 +18,7 @@ import {
 import { SectionHeading } from "@/components/shared/section-heading";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { skillCategories, type SkillCategory } from "@/data/skills";
+import { skillCategories, testingTypes, type SkillCategory } from "@/data/skills";
 import { fadeUp, staggerContainer, VIEWPORT } from "@/lib/motion";
 
 /** Resolves the icon names declared in the skills data to lucide components. */
@@ -51,6 +52,24 @@ export function Skills() {
           title="My technical toolbox"
           subtitle="An automation-first engineering stack — the languages, frameworks and platforms I use to test deeply and build reliably."
         />
+
+        {/* Testing-types coverage strip — the exact words hirers scan for */}
+        <motion.div
+          variants={staggerContainer(0.05)}
+          initial="hidden"
+          whileInView="visible"
+          viewport={VIEWPORT}
+          className="mb-12 flex flex-wrap items-center justify-center gap-2.5"
+        >
+          {testingTypes.map((type) => (
+            <motion.span key={type} variants={fadeUp}>
+              <span className="glass inline-flex items-center gap-1.5 rounded-full px-4 py-1.5 text-sm font-medium transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/40 hover:text-primary">
+                <CheckCircle2 className="h-3.5 w-3.5 text-primary" aria-hidden="true" />
+                {type}
+              </span>
+            </motion.span>
+          ))}
+        </motion.div>
 
         <motion.div
           variants={staggerContainer()}
