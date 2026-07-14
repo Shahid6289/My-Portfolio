@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { Command as CommandIcon, Menu, X } from "lucide-react";
+import { Command as CommandIcon, Download, Menu, X } from "lucide-react";
 
 import { ThemeToggle } from "@/components/theme/theme-toggle";
 import { buttonVariants } from "@/components/ui/button";
@@ -132,12 +132,21 @@ export function Navbar() {
 
           <ThemeToggle />
 
+          {/* Border-beam resume button — a gradient spark orbits the pill,
+              visually distinct from the hero's filled-gradient CTA */}
           <a
             href={site.resumePath}
             download
-            className={cn(buttonVariants({ variant: "gradient", size: "sm" }), "shine hidden sm:inline-flex")}
+            className="group/resume relative hidden overflow-hidden rounded-full p-[1.5px] transition-shadow duration-300 hover:shadow-[0_0_18px_-6px_hsl(var(--primary)/0.6)] sm:inline-flex"
           >
-            Resume
+            <span
+              aria-hidden="true"
+              className="absolute inset-[-100%] animate-[spin-slow_4s_linear_infinite] bg-[conic-gradient(from_0deg,transparent_0%,#6366f1_18%,#8b5cf6_32%,#22d3ee_46%,transparent_64%)]"
+            />
+            <span className="relative inline-flex h-9 items-center gap-1.5 rounded-full bg-background/95 px-4 text-xs font-semibold backdrop-blur transition-colors duration-300 group-hover/resume:bg-background/85">
+              <Download className="h-3.5 w-3.5 text-primary" aria-hidden="true" />
+              <span className="text-gradient">Resume</span>
+            </span>
           </a>
 
           {/* Mobile hamburger */}
