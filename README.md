@@ -9,7 +9,7 @@ A modern, responsive portfolio for **Shahid Parvez** — SDET · QA Automation E
 - **Framer Motion animations** — scroll reveals, staggered fades, section transitions, all `prefers-reduced-motion`-aware
 - **Command palette** — press <kbd>⌘K</kbd> / <kbd>Ctrl K</kbd> to navigate, toggle theme, copy email, download resume
 - **Animated particle background**, typing effect, scroll progress bar, back-to-top, loading splash
-- **Working contact form** via [FormSubmit](https://formsubmit.co/) — no API keys or backend required
+- **Working contact form** via [Web3Forms](https://web3forms.com/) — no backend required, just a free publishable key
 - **SEO-ready** — metadata, Open Graph + Twitter cards, generated OG image, `robots.txt`, `sitemap.xml`, JSON-LD Person schema
 - **Accessible** — semantic HTML, keyboard navigation, ARIA labels, focus rings, skip-to-content link
 - **Content-driven** — every fact on the page lives in `src/data/*`; components never hardcode resume content
@@ -81,10 +81,10 @@ npm start
    Add entries in [src/data/certifications.ts](src/data/certifications.ts) and it appears automatically.
 4. **Project screenshots** — project cards use gradient placeholders (marked with comments)
    that can be replaced with real screenshots.
-5. **Contact form activation** — FormSubmit sends a one-time activation email to
-   `devcraft.shahid@gmail.com` on the first submission. Click the link once and the
-   form is live. Prefer EmailJS? Swap the `fetch` call in
-   `src/components/sections/contact.tsx` for the EmailJS SDK.
+5. **Contact form key** — grab a free access key at [web3forms.com](https://web3forms.com)
+   (enter your email; the key arrives instantly) and set it as
+   `NEXT_PUBLIC_WEB3FORMS_KEY` — in `.env.local` for dev and in your host's
+   environment variables for production (see `.env.example`).
 6. **Site URL** — set `NEXT_PUBLIC_SITE_URL` after deploying so SEO tags, the sitemap
    and robots.txt point at your real domain.
 
@@ -113,11 +113,12 @@ Or connect the repo at [app.netlify.com](https://app.netlify.com) — `netlify.t
 
 ## 🔑 Environment Variables
 
-| Variable               | Required | Purpose                                                      |
-| ---------------------- | -------- | ------------------------------------------------------------ |
-| `NEXT_PUBLIC_SITE_URL` | No       | Canonical site URL for SEO/sitemap (falls back to a default) |
+| Variable                   | Required | Purpose                                                       |
+| -------------------------- | -------- | ------------------------------------------------------------- |
+| `NEXT_PUBLIC_WEB3FORMS_KEY`| Yes*     | Web3Forms access key for the contact form (*form falls back to a mailto link without it) |
+| `NEXT_PUBLIC_SITE_URL`     | No       | Canonical site URL for SEO/sitemap (falls back to a default)  |
 
-No secrets are needed — the contact form runs entirely on FormSubmit's free endpoint.
+Both are publishable values — no true secrets are involved.
 
 ---
 

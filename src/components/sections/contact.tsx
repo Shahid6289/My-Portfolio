@@ -67,11 +67,14 @@ type FormStatus = "idle" | "sending" | "success" | "error";
  * Contact section: direct-channel cards on the left, an AJAX contact form on
  * the right.
  *
- * NOTE: The form posts to FormSubmit (https://formsubmit.co), which requires a
- * one-time email activation — the very first submission sends a confirmation
- * link to {site.email}; until it is clicked, messages are not delivered. An
- * EmailJS-based alternative is documented in the README.
+ * The form posts to Web3Forms (https://web3forms.com) — a backendless form
+ * API for static sites. It needs NEXT_PUBLIC_WEB3FORMS_KEY set (get a free
+ * access key at web3forms.com; it's a publishable key, safe to expose
+ * client-side). Without the key, submissions fall back to the error state,
+ * which offers a direct mailto link — the form never dead-ends.
  */
+const WEB3FORMS_KEY = process.env.NEXT_PUBLIC_WEB3FORMS_KEY;
+
 export function Contact() {
   const [status, setStatus] = React.useState<FormStatus>("idle");
 
@@ -83,24 +86,32 @@ export function Contact() {
     // Honeypot: real users never see or fill this field — bots do.
     if (String(data.get("_honey") ?? "").trim().length > 0) return;
 
+    if (!WEB3FORMS_KEY) {
+      setStatus("error");
+      return;
+    }
+
     setStatus("sending");
     try {
-      const response = await fetch("https://formsubmit.co/ajax/" + site.email, {
+      const response = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           Accept: "application/json",
         },
         body: JSON.stringify({
+          access_key: WEB3FORMS_KEY,
           name: String(data.get("name") ?? ""),
           email: String(data.get("email") ?? ""),
           subject: String(data.get("subject") ?? "").trim() || "Portfolio contact",
           message: String(data.get("message") ?? ""),
-          _template: "table",
-          _captcha: "false",
+          from_name: "Portfolio contact form",
         }),
       });
-      if (!response.ok) throw new Error(`FormSubmit responded with ${response.status}`);
+      const result = (await response.json()) as { success?: boolean };
+      if (!response.ok || !result.success) {
+        throw new Error(`Web3Forms responded with ${response.status}`);
+      }
       setStatus("success");
       form.reset();
     } catch {
