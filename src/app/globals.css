@@ -139,9 +139,10 @@
     @apply bg-gradient-to-r from-indigo-500 via-violet-500 to-cyan-400;
   }
 
-  /* Frosted glass panel */
+  /* Frosted glass panel — light mode gets a whisper of shadow for definition
+     against the near-white page background */
   .glass {
-    @apply border border-zinc-200/70 bg-white/70 backdrop-blur-xl dark:border-white/10 dark:bg-zinc-900/60;
+    @apply border border-zinc-200/80 bg-white/75 shadow-sm shadow-zinc-900/[0.04] backdrop-blur-xl dark:border-white/10 dark:bg-zinc-900/60 dark:shadow-none;
   }
 
   /* Faint dot grid for section backdrops */

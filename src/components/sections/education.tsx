@@ -20,7 +20,7 @@ export function Education() {
         aria-hidden
         className="absolute inset-0 bg-grid [mask-image:radial-gradient(ellipse_60%_50%_at_50%_40%,black,transparent)]"
       />
-      <div aria-hidden className="glow-blob right-1/4 top-10 h-72 w-72 bg-violet-500/15" />
+      <div aria-hidden className="glow-blob right-1/4 top-10 h-72 w-72 bg-violet-500/[0.07] dark:bg-violet-500/15" />
 
       <div className="container relative">
         <SectionHeading

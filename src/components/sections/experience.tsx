@@ -23,7 +23,7 @@ export function Experience() {
         aria-hidden
         className="absolute inset-0 bg-grid [mask-image:radial-gradient(ellipse_70%_60%_at_50%_35%,black,transparent)]"
       />
-      <div aria-hidden className="glow-blob left-1/4 top-0 h-72 w-72 bg-indigo-500/20" />
+      <div aria-hidden className="glow-blob left-1/4 top-0 h-72 w-72 bg-indigo-500/10 dark:bg-indigo-500/20" />
       <div aria-hidden className="glow-blob bottom-16 right-1/4 h-72 w-72 bg-cyan-400/10" />
 
       <div className="container relative">

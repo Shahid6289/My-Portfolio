@@ -21,7 +21,7 @@ export function Achievements() {
       {/* Decorative backdrop */}
       <div
         aria-hidden="true"
-        className="glow-blob right-1/4 top-10 h-72 w-72 bg-violet-500/15"
+        className="glow-blob right-1/4 top-10 h-72 w-72 bg-violet-500/[0.07] dark:bg-violet-500/15"
       />
 
       <div className="container relative">

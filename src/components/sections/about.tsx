@@ -12,7 +12,7 @@ export function About() {
   return (
     <section id="about" className="relative overflow-hidden py-24 sm:py-28">
       <div
-        className="glow-blob left-1/4 top-0 h-72 w-72 bg-indigo-500/20"
+        className="glow-blob left-1/4 top-0 h-72 w-72 bg-indigo-500/10 dark:bg-indigo-500/20"
         aria-hidden="true"
       />
 
@@ -90,13 +90,13 @@ export function About() {
             viewport={VIEWPORT}
             className="content-start lg:col-span-2"
           >
-            <div className="group overflow-hidden rounded-2xl border border-border bg-card shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-primary/30 hover:shadow-lg hover:shadow-primary/10">
+            <div className="group overflow-hidden rounded-2xl border border-zinc-800 bg-zinc-950 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-primary/30 hover:shadow-lg hover:shadow-primary/10">
               {/* Title bar */}
-              <div className="flex items-center gap-2 border-b border-border/60 bg-muted/40 px-4 py-3">
+              <div className="flex items-center gap-2 border-b border-zinc-800 bg-zinc-900/70 px-4 py-3">
                 <span className="h-2.5 w-2.5 rounded-full bg-rose-500/80" aria-hidden="true" />
                 <span className="h-2.5 w-2.5 rounded-full bg-amber-500/80" aria-hidden="true" />
                 <span className="h-2.5 w-2.5 rounded-full bg-emerald-500/80" aria-hidden="true" />
-                <span className="ml-2 text-xs font-medium text-muted-foreground">
+                <span className="ml-2 text-xs font-medium text-zinc-400">
                   quality-pipeline — zsh
                 </span>
               </div>
@@ -107,37 +107,37 @@ export function About() {
                 initial="hidden"
                 whileInView="visible"
                 viewport={VIEWPORT}
-                className="space-y-1.5 p-5 font-mono text-[13px] leading-relaxed"
+                className="space-y-1.5 p-5 font-mono text-[13px] leading-relaxed text-zinc-300"
               >
                 <motion.p variants={fadeUp}>
-                  <span className="text-primary">$</span> npx playwright test
+                  <span className="text-indigo-400">$</span> npx playwright test
                 </motion.p>
-                <motion.p variants={fadeUp} className="text-muted-foreground">
+                <motion.p variants={fadeUp} className="text-zinc-500">
                   Running 200 tests using 4 workers…
                 </motion.p>
                 <motion.p variants={fadeUp}>
-                  <span className="text-emerald-500">✓</span> auth.spec.ts{" "}
-                  <span className="text-muted-foreground">(24 passed)</span>
+                  <span className="text-emerald-400">✓</span> auth.spec.ts{" "}
+                  <span className="text-zinc-500">(24 passed)</span>
                 </motion.p>
                 <motion.p variants={fadeUp}>
-                  <span className="text-emerald-500">✓</span> payments.spec.ts{" "}
-                  <span className="text-muted-foreground">(31 passed)</span>
+                  <span className="text-emerald-400">✓</span> payments.spec.ts{" "}
+                  <span className="text-zinc-500">(31 passed)</span>
                 </motion.p>
                 <motion.p variants={fadeUp}>
-                  <span className="text-emerald-500">✓</span> api-contracts.spec.ts{" "}
-                  <span className="text-muted-foreground">(58 passed)</span>
+                  <span className="text-emerald-400">✓</span> api-contracts.spec.ts{" "}
+                  <span className="text-zinc-500">(58 passed)</span>
                 </motion.p>
                 <motion.p variants={fadeUp}>
-                  <span className="text-emerald-500">✓</span> db-assertions.spec.ts{" "}
-                  <span className="text-muted-foreground">(87 passed)</span>
+                  <span className="text-emerald-400">✓</span> db-assertions.spec.ts{" "}
+                  <span className="text-zinc-500">(87 passed)</span>
                 </motion.p>
-                <motion.p variants={fadeUp} className="pt-1 font-semibold text-emerald-500">
-                  200 passed <span className="font-normal text-muted-foreground">(3m 42s)</span>
+                <motion.p variants={fadeUp} className="pt-1 font-semibold text-emerald-400">
+                  200 passed <span className="font-normal text-zinc-500">(3m 42s)</span>
                 </motion.p>
                 <motion.p variants={fadeUp} className="pt-2">
-                  <span className="text-primary">$</span> All quality gates green — ship it
+                  <span className="text-indigo-400">$</span> All quality gates green — ship it
                   <span
-                    className="ml-1 inline-block h-3.5 w-[7px] animate-blink bg-primary align-middle"
+                    className="ml-1 inline-block h-3.5 w-[7px] animate-blink bg-indigo-400 align-middle"
                     aria-hidden="true"
                   />
                 </motion.p>

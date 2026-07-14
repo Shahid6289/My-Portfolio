@@ -116,14 +116,36 @@ function QualityCore() {
     <div className="relative" aria-hidden="true">
       <svg viewBox="0 0 200 200" className="h-52 w-52 sm:h-72 sm:w-72">
         <defs>
+          {/* Stops darken in light mode ([stop-color:…] overrides the attr)
+              so the HUD keeps contrast on the white card */}
           <linearGradient id="core-gradient" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0%" stopColor="#6366f1" />
-            <stop offset="50%" stopColor="#8b5cf6" />
-            <stop offset="100%" stopColor="#22d3ee" />
+            <stop
+              offset="0%"
+              stopColor="#6366f1"
+              className="[stop-color:#4f46e5] dark:[stop-color:#6366f1]"
+            />
+            <stop
+              offset="50%"
+              stopColor="#8b5cf6"
+              className="[stop-color:#7c3aed] dark:[stop-color:#8b5cf6]"
+            />
+            <stop
+              offset="100%"
+              stopColor="#22d3ee"
+              className="[stop-color:#0891b2] dark:[stop-color:#22d3ee]"
+            />
           </linearGradient>
           <radialGradient id="core-glow" cx="0.5" cy="0.5" r="0.5">
-            <stop offset="0%" stopColor="#8b5cf6" stopOpacity="0.55" />
-            <stop offset="60%" stopColor="#6366f1" stopOpacity="0.18" />
+            <stop
+              offset="0%"
+              stopColor="#8b5cf6"
+              className="[stop-opacity:0.35] dark:[stop-opacity:0.55]"
+            />
+            <stop
+              offset="60%"
+              stopColor="#6366f1"
+              className="[stop-opacity:0.10] dark:[stop-opacity:0.18]"
+            />
             <stop offset="100%" stopColor="#6366f1" stopOpacity="0" />
           </radialGradient>
         </defs>
@@ -173,7 +195,7 @@ function QualityCore() {
               opacity="0.75"
             />
           ))}
-          <circle cx="100" cy="55" r="2.5" fill="#22d3ee" />
+          <circle cx="100" cy="55" r="2.5" className="fill-cyan-600 dark:fill-cyan-400" />
         </g>
 
         {/* Middle arc pair — slower, counter-rotating, violet satellite */}
@@ -196,7 +218,7 @@ function QualityCore() {
               opacity="0.45"
             />
           ))}
-          <circle cx="100" cy="162" r="2" fill="#8b5cf6" />
+          <circle cx="100" cy="162" r="2" className="fill-violet-600 dark:fill-violet-500" />
         </g>
 
         {/* Outer bezel: faint dashed ring + four tick blocks drifting slowly */}
@@ -260,11 +282,11 @@ export function Hero() {
       />
       <div
         aria-hidden="true"
-        className="glow-blob left-[12%] top-8 -z-10 h-72 w-72 animate-float bg-indigo-500/20"
+        className="glow-blob left-[12%] top-8 -z-10 h-72 w-72 animate-float bg-indigo-500/10 dark:bg-indigo-500/20"
       />
       <div
         aria-hidden="true"
-        className="glow-blob bottom-16 right-[10%] -z-10 h-72 w-72 animate-float bg-cyan-500/20"
+        className="glow-blob bottom-16 right-[10%] -z-10 h-72 w-72 animate-float bg-cyan-500/10 dark:bg-cyan-500/20"
         style={{ animationDelay: "2.5s" }}
       />
 
