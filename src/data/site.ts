@@ -24,7 +24,6 @@ export const site = {
   resumePath: "/Shahid_Parvez_Resume.pdf",
   socials: {
     linkedin: "https://www.linkedin.com/in/shahid-parvez-8599961b3/",
-    // TODO: replace with your real GitHub profile URL (not listed on the resume)
     github: "https://github.com/Shahid6289",
   },
   /** Section anchors used by the navbar, command palette and footer. */
