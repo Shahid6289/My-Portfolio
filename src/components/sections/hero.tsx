@@ -490,7 +490,7 @@ export function Hero() {
                             />
                           ) : null}
                         </div>
-                        <div className="glass -mt-2.5 whitespace-nowrap rounded-full px-2.5 py-0.5 text-[11px] font-semibold shadow-md sm:text-xs">
+                        <div className="glass mt-2 whitespace-nowrap rounded-full px-2.5 py-0.5 text-[11px] font-semibold shadow-md sm:text-xs">
                           {label}
                         </div>
                       </div>
