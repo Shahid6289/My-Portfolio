@@ -466,7 +466,7 @@ export function Hero() {
                       <div className="animate-orbit-reverse flex flex-col items-center group-hover:[animation-play-state:paused]">
                         {/* Big logo disc — the label rides in a pill overlapping below */}
                         <div
-                          className="flex h-14 w-14 items-center justify-center rounded-full border border-zinc-200/80 bg-white shadow-lg transition-transform duration-300 hover:scale-110 dark:border-white/20 sm:h-[4.25rem] sm:w-[4.25rem]"
+                          className="relative flex h-14 w-14 items-center justify-center overflow-hidden rounded-full border border-zinc-200/80 bg-white shadow-lg transition-transform duration-300 hover:scale-110 dark:border-white/15 dark:bg-zinc-900 sm:h-[4.25rem] sm:w-[4.25rem]"
                           // Soft drop shadow tinted with the tool's own brand color
                           style={
                             brand
@@ -474,10 +474,21 @@ export function Hero() {
                               : undefined
                           }
                         >
+                          {/* Brand-tinted halo behind the logo — dark mode only,
+                              so dark marks (MySQL, JMeter) stay legible */}
+                          {brand ? (
+                            <span
+                              aria-hidden="true"
+                              className="absolute inset-0 opacity-0 dark:opacity-100"
+                              style={{
+                                background: `radial-gradient(circle at 50% 42%, #${brand.hex}38, transparent 72%)`,
+                              }}
+                            />
+                          ) : null}
                           {brand ? (
                             <svg
                               viewBox="0 0 24 24"
-                              className="h-7 w-7 sm:h-8 sm:w-8"
+                              className="relative h-7 w-7 dark:brightness-125 dark:saturate-125 sm:h-8 sm:w-8"
                               fill={`#${brand.hex}`}
                               aria-hidden="true"
                             >
@@ -485,7 +496,7 @@ export function Hero() {
                             </svg>
                           ) : Icon ? (
                             <Icon
-                              className="h-7 w-7 text-indigo-600 sm:h-8 sm:w-8"
+                              className="relative h-7 w-7 text-indigo-600 dark:text-indigo-400 sm:h-8 sm:w-8"
                               aria-hidden="true"
                             />
                           ) : null}
