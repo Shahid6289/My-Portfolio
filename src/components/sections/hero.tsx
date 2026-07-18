@@ -150,19 +150,10 @@ function QualityCore() {
           </radialGradient>
         </defs>
 
-        {/* Ambient depth + inner reference ring */}
-        <circle cx="100" cy="100" r="95" fill="url(#core-glow)" opacity="0.35" />
-        <circle
-          cx="100"
-          cy="100"
-          r="30"
-          fill="none"
-          stroke="url(#core-gradient)"
-          strokeWidth="1"
-          opacity="0.3"
-        />
+        {/* Ambient depth — stronger in dark mode where the card is near-black */}
+        <circle cx="100" cy="100" r="95" fill="url(#core-glow)" className="opacity-40 dark:opacity-70" />
 
-        {/* Energy ripples pulsing out of the core */}
+        {/* Energy ripples pulsing out from behind the medallion */}
         {[0, 1.3].map((delay) => (
           <motion.circle
             key={delay}
@@ -171,8 +162,8 @@ function QualityCore() {
             fill="none"
             stroke="url(#core-gradient)"
             strokeWidth="1.5"
-            initial={{ r: 18, opacity: 0.4 }}
-            animate={reduce ? { r: 24, opacity: 0.15 } : { r: [18, 40], opacity: [0.35, 0] }}
+            initial={{ r: 28, opacity: 0.4 }}
+            animate={reduce ? { r: 32, opacity: 0.15 } : { r: [28, 48], opacity: [0.4, 0] }}
             transition={
               reduce ? { duration: 0 } : { duration: 2.6, delay, repeat: Infinity, ease: "easeOut" }
             }
@@ -192,7 +183,7 @@ function QualityCore() {
               stroke="url(#core-gradient)"
               strokeWidth="2.5"
               strokeLinecap="round"
-              opacity="0.75"
+              className="opacity-75 dark:opacity-100"
             />
           ))}
           <circle cx="100" cy="55" r="2.5" className="fill-cyan-600 dark:fill-cyan-400" />
@@ -215,7 +206,7 @@ function QualityCore() {
               stroke="url(#core-gradient)"
               strokeWidth="1.5"
               strokeLinecap="round"
-              opacity="0.45"
+              className="opacity-45 dark:opacity-75"
             />
           ))}
           <circle cx="100" cy="162" r="2" className="fill-violet-600 dark:fill-violet-500" />
@@ -230,7 +221,7 @@ function QualityCore() {
           stroke="url(#core-gradient)"
           strokeWidth="1"
           strokeDasharray="2 7"
-          opacity="0.3"
+          className="opacity-30 dark:opacity-55"
         />
         <g
           className="animate-[spin-slow_30s_linear_infinite]"
@@ -243,13 +234,22 @@ function QualityCore() {
               fill="none"
               stroke="url(#core-gradient)"
               strokeWidth="3.5"
-              opacity="0.6"
+              className="opacity-60 dark:opacity-85"
             />
           ))}
         </g>
 
-        {/* The core: glow + the verified check drawing itself in */}
-        <circle cx="100" cy="100" r="22" fill="url(#core-glow)" />
+        {/* The core medallion: glow halo, solid disc with a gradient ring,
+            and the verified check drawing itself in */}
+        <circle cx="100" cy="100" r="38" fill="url(#core-glow)" />
+        <circle
+          cx="100"
+          cy="100"
+          r="27"
+          className="fill-white dark:fill-zinc-900"
+          stroke="url(#core-gradient)"
+          strokeWidth="2"
+        />
         <motion.path
           d="M89 100 L97 108 L112 91"
           fill="none"
@@ -466,7 +466,7 @@ export function Hero() {
                       <div className="animate-orbit-reverse flex flex-col items-center group-hover:[animation-play-state:paused]">
                         {/* Big logo disc — the label rides in a pill overlapping below */}
                         <div
-                          className="flex h-14 w-14 items-center justify-center rounded-full border border-border bg-card shadow-lg transition-transform duration-300 hover:scale-110 sm:h-[4.25rem] sm:w-[4.25rem]"
+                          className="flex h-14 w-14 items-center justify-center rounded-full border border-zinc-200/80 bg-white shadow-lg transition-transform duration-300 hover:scale-110 dark:border-white/20 sm:h-[4.25rem] sm:w-[4.25rem]"
                           // Soft drop shadow tinted with the tool's own brand color
                           style={
                             brand
@@ -485,7 +485,7 @@ export function Hero() {
                             </svg>
                           ) : Icon ? (
                             <Icon
-                              className="h-7 w-7 text-primary sm:h-8 sm:w-8"
+                              className="h-7 w-7 text-indigo-600 sm:h-8 sm:w-8"
                               aria-hidden="true"
                             />
                           ) : null}
