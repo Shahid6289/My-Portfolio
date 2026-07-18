@@ -1,9 +1,11 @@
 "use client";
 
+import * as React from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import {
   BadgeCheck,
   Bot,
+  Check,
   Download,
   Github,
   Linkedin,
@@ -239,30 +241,81 @@ function QualityCore() {
           ))}
         </g>
 
-        {/* The core medallion: glow halo, solid disc with a gradient ring,
-            and the verified check drawing itself in */}
+        {/* Quality gauge: a 270° dial that fills while the score counts to 100.
+            Track + fill share one literal arc path (r=34, opening at the bottom). */}
         <circle cx="100" cy="100" r="38" fill="url(#core-glow)" />
-        <circle
-          cx="100"
-          cy="100"
-          r="27"
-          className="fill-white dark:fill-zinc-900"
-          stroke="url(#core-gradient)"
-          strokeWidth="2"
+        <path
+          d="M75.96 124.04 A34 34 0 1 1 124.04 124.04"
+          fill="none"
+          strokeWidth="6"
+          strokeLinecap="round"
+          className="stroke-zinc-300/70 dark:stroke-white/10"
         />
         <motion.path
-          d="M89 100 L97 108 L112 91"
+          d="M75.96 124.04 A34 34 0 1 1 124.04 124.04"
           fill="none"
           stroke="url(#core-gradient)"
-          strokeWidth="5"
+          strokeWidth="6"
           strokeLinecap="round"
-          strokeLinejoin="round"
-          initial={{ pathLength: 0, opacity: 0 }}
-          animate={{ pathLength: 1, opacity: 1 }}
-          transition={{ duration: reduce ? 0 : 0.8, delay: reduce ? 0 : 0.5, ease: "easeInOut" }}
+          initial={{ pathLength: 0 }}
+          animate={{ pathLength: 1 }}
+          transition={{ duration: reduce ? 0 : 1.8, delay: reduce ? 0 : 0.3, ease: "easeInOut" }}
         />
       </svg>
+
+      {/* Score readout overlaid on the gauge */}
+      <div className="absolute inset-0 flex flex-col items-center justify-center">
+        <GaugeReadout />
+      </div>
     </div>
+  );
+}
+
+/**
+ * Counts the quality score from 0 to 100 in sync with the gauge fill, then
+ * reveals the "gates green" confirmation. Reduced motion jumps straight to
+ * the final state.
+ */
+function GaugeReadout() {
+  const reduce = useReducedMotion();
+  const [value, setValue] = React.useState(0);
+
+  React.useEffect(() => {
+    if (reduce) {
+      setValue(100);
+      return;
+    }
+    // Mirrors the gauge fill: 300ms delay, 1.8s ease-out sweep.
+    const DELAY_MS = 300;
+    const DURATION_MS = 1800;
+    let raf = 0;
+    const start = performance.now();
+    const tick = (now: number) => {
+      const t = Math.min(Math.max(now - start - DELAY_MS, 0) / DURATION_MS, 1);
+      const eased = 1 - Math.pow(1 - t, 3);
+      setValue(Math.round(eased * 100));
+      if (t < 1) raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, [reduce]);
+
+  const done = value === 100;
+  return (
+    <>
+      <span className="text-gradient font-display text-2xl font-bold tracking-tight sm:text-3xl">
+        {value}%
+      </span>
+      <span
+        className={cn(
+          "mt-0.5 flex items-center gap-1 text-[9px] font-semibold uppercase tracking-[0.2em] text-muted-foreground transition-opacity duration-500 sm:text-[10px]",
+          done ? "opacity-100" : "opacity-0"
+        )}
+      >
+        <Check className="h-3 w-3 text-emerald-500" aria-hidden="true" />
+        Gates green
+      </span>
+    </>
   );
 }
 
