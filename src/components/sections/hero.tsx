@@ -5,7 +5,6 @@ import { motion, useReducedMotion } from "framer-motion";
 import {
   BadgeCheck,
   Bot,
-  Check,
   Download,
   Github,
   Linkedin,
@@ -271,10 +270,23 @@ function QualityCore() {
   );
 }
 
+/** Radial spark offsets (px) for the completion burst — literals, 8 directions. */
+const SPARKS = [
+  { x: 0, y: -64, color: "bg-cyan-400" },
+  { x: 45, y: -45, color: "bg-violet-400" },
+  { x: 64, y: 0, color: "bg-indigo-400" },
+  { x: 45, y: 45, color: "bg-cyan-400" },
+  { x: 0, y: 64, color: "bg-violet-400" },
+  { x: -45, y: 45, color: "bg-indigo-400" },
+  { x: -64, y: 0, color: "bg-cyan-400" },
+  { x: -45, y: -45, color: "bg-violet-400" },
+] as const;
+
 /**
- * Counts the quality score from 0 to 100 in sync with the gauge fill, then
- * reveals the "gates green" confirmation. Reduced motion jumps straight to
- * the final state.
+ * Counts the quality score from 0 to 100 in sync with the gauge fill. On
+ * completion the number pops, a shockwave ring and radial sparks burst
+ * outward, and a pulsing emerald status LED settles into the dial's bottom
+ * opening. Reduced motion jumps straight to the final state, burst-free.
  */
 function GaugeReadout() {
   const reduce = useReducedMotion();
@@ -302,20 +314,56 @@ function GaugeReadout() {
 
   const done = value === 100;
   return (
-    <>
-      <span className="text-gradient font-display text-2xl font-bold tracking-tight sm:text-3xl">
+    <div className="relative flex flex-col items-center justify-center">
+      {/* Completion burst: shockwave ring + radial sparks (renders client-side
+          only once the count finishes, so SSR markup stays stable) */}
+      {done && !reduce ? (
+        <>
+          <motion.span
+            aria-hidden="true"
+            className="absolute left-1/2 top-1/2 h-24 w-24 rounded-full border-2 border-cyan-400/70"
+            initial={{ x: "-50%", y: "-50%", scale: 0.7, opacity: 0.8 }}
+            animate={{ x: "-50%", y: "-50%", scale: 2, opacity: 0 }}
+            transition={{ duration: 0.9, ease: "easeOut" }}
+          />
+          {SPARKS.map(({ x, y, color }, i) => (
+            <motion.span
+              key={i}
+              aria-hidden="true"
+              className={cn("absolute left-1/2 top-1/2 h-1.5 w-1.5 rounded-full", color)}
+              initial={{ x: "-50%", y: "-50%", opacity: 1, scale: 1 }}
+              animate={{
+                x: `calc(-50% + ${x}px)`,
+                y: `calc(-50% + ${y}px)`,
+                opacity: 0,
+                scale: 0.3,
+              }}
+              transition={{ duration: 0.8, delay: i * 0.02, ease: "easeOut" }}
+            />
+          ))}
+        </>
+      ) : null}
+
+      <motion.span
+        className="text-gradient font-display text-2xl font-bold tracking-tight sm:text-3xl"
+        animate={done && !reduce ? { scale: [1, 1.18, 1] } : undefined}
+        transition={{ duration: 0.5, ease: "easeOut" }}
+      >
         {value}%
-      </span>
+      </motion.span>
+
+      {/* Status LED resting in the dial's bottom opening */}
       <span
+        aria-hidden="true"
         className={cn(
-          "mt-0.5 flex items-center gap-1 text-[9px] font-semibold uppercase tracking-[0.2em] text-muted-foreground transition-opacity duration-500 sm:text-[10px]",
+          "absolute -bottom-6 left-1/2 flex h-2 w-2 -translate-x-1/2 transition-opacity duration-500 sm:-bottom-8",
           done ? "opacity-100" : "opacity-0"
         )}
       >
-        <Check className="h-3 w-3 text-emerald-500" aria-hidden="true" />
-        Gates green
+        <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
+        <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
       </span>
-    </>
+    </div>
   );
 }
 
