@@ -139,14 +139,16 @@ export function Navbar() {
 
         {/* Right-side controls */}
         <div className="flex items-center gap-2">
+          {/* Icon-only on phones (no keyboard, but the palette works by touch);
+              the "K" shortcut hint appears from sm up */}
           <button
             type="button"
             aria-label="Open command palette"
             onClick={openCommandPalette}
-            className="hidden h-9 items-center gap-1.5 rounded-full border border-border px-3 text-xs font-medium text-muted-foreground transition hover:border-primary/30 hover:text-foreground hover:shadow-sm sm:flex"
+            className="flex h-9 items-center justify-center gap-1.5 rounded-full border border-border px-2.5 text-xs font-medium text-muted-foreground transition hover:border-primary/30 hover:text-foreground hover:shadow-sm sm:px-3"
           >
             <CommandIcon className="h-3.5 w-3.5" aria-hidden />
-            <span>K</span>
+            <span className="hidden sm:inline">K</span>
           </button>
 
           <ThemeToggle />
