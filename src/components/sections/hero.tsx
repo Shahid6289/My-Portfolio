@@ -561,13 +561,13 @@ export function Hero() {
                         stiffness: 260,
                         damping: 18,
                       }}
-                      className={cn("absolute", index % 2 === 1 && "hidden sm:block")}
+                      className="absolute"
                       style={{ left: `${left}%`, top: `${top}%`, x: "-50%", y: "-50%" }}
                     >
                       <div className="animate-orbit-reverse flex flex-col items-center group-hover:[animation-play-state:paused]">
                         {/* Big logo disc — the label rides in a pill overlapping below */}
                         <div
-                          className="relative flex h-14 w-14 items-center justify-center overflow-hidden rounded-full border border-zinc-200/80 bg-white shadow-lg transition-transform duration-300 hover:scale-110 dark:border-white/15 dark:bg-zinc-900 sm:h-[4.25rem] sm:w-[4.25rem]"
+                          className="relative flex h-12 w-12 items-center justify-center overflow-hidden rounded-full border border-zinc-200/80 bg-white shadow-lg transition-transform duration-300 hover:scale-110 dark:border-white/15 dark:bg-zinc-900 sm:h-[4.25rem] sm:w-[4.25rem]"
                           // Soft drop shadow tinted with the tool's own brand color
                           style={
                             brand
@@ -589,7 +589,7 @@ export function Hero() {
                           {brand ? (
                             <svg
                               viewBox="0 0 24 24"
-                              className="relative h-7 w-7 dark:brightness-125 dark:saturate-125 sm:h-8 sm:w-8"
+                              className="relative h-6 w-6 dark:brightness-125 dark:saturate-125 sm:h-8 sm:w-8"
                               fill={`#${brand.hex}`}
                               aria-hidden="true"
                             >
@@ -597,12 +597,12 @@ export function Hero() {
                             </svg>
                           ) : Icon ? (
                             <Icon
-                              className="relative h-7 w-7 text-indigo-600 dark:text-indigo-400 sm:h-8 sm:w-8"
+                              className="relative h-6 w-6 text-indigo-600 dark:text-indigo-400 sm:h-8 sm:w-8"
                               aria-hidden="true"
                             />
                           ) : null}
                         </div>
-                        <div className="glass mt-2 whitespace-nowrap rounded-full px-2.5 py-0.5 text-[11px] font-semibold shadow-md sm:text-xs">
+                        <div className="glass mt-1.5 whitespace-nowrap rounded-full px-2 py-0.5 text-[10px] font-semibold shadow-md sm:mt-2 sm:px-2.5 sm:text-xs">
                           {label}
                         </div>
                       </div>

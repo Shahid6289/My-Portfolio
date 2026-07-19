@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { Command as CommandIcon, Menu, Sparkles, X } from "lucide-react";
 
 import { ThemeToggle } from "@/components/theme/theme-toggle";
@@ -23,6 +23,25 @@ export function Navbar() {
   const [menuOpen, setMenuOpen] = React.useState(false);
   const [activeId, setActiveId] = React.useState<string>("home");
   const hamburgerRef = React.useRef<HTMLButtonElement>(null);
+  const reduceMotion = useReducedMotion();
+
+  /**
+   * Mobile-menu navigation: Chromium cancels an in-flight smooth scroll when
+   * layout mutates, and the menu's height-collapse + unmount does exactly
+   * that — so the default anchor jump silently dies at scrollY 0. Instead:
+   * close the menu first, then start the scroll once the exit animation
+   * (0.25s) has finished.
+   */
+  const closeMenuAndScroll =
+    (href: string) => (event: React.MouseEvent<HTMLAnchorElement>) => {
+      event.preventDefault();
+      setMenuOpen(false);
+      const target = document.querySelector(href);
+      window.setTimeout(() => {
+        target?.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth" });
+        history.replaceState(null, "", href);
+      }, 280);
+    };
 
   // Glass background once the page has scrolled past the very top.
   React.useEffect(() => {
@@ -184,7 +203,7 @@ export function Navbar() {
                   <a
                     key={item.href}
                     href={item.href}
-                    onClick={() => setMenuOpen(false)}
+                    onClick={closeMenuAndScroll(item.href)}
                     aria-current={isActive ? "location" : undefined}
                     className={cn(
                       "rounded-lg px-3 py-2.5 text-sm font-medium transition-colors",
@@ -199,7 +218,7 @@ export function Navbar() {
               })}
               <a
                 href="#contact"
-                onClick={() => setMenuOpen(false)}
+                onClick={closeMenuAndScroll("#contact")}
                 className={cn(buttonVariants({ variant: "gradient", size: "sm" }), "mt-2")}
               >
                 <Sparkles aria-hidden="true" />
