@@ -29,9 +29,9 @@ export const achievements: Achievement[] = [
     icon: "Bug",
   },
   {
-    title: "Architecture-Adaptive Automation",
+    title: "Distributed Load Testing on Kubernetes",
     description:
-      "Adapted test frameworks across monolith, microservices and cloud-native architectures, aligning automation with each project's DevOps pipeline and release cadence.",
+      "Drove adoption of containerised, distributed load testing on Kubernetes — then independently diagnosed and resolved an environment issue skewing spike results, making performance runs reproducible and reliable.",
     icon: "Layers",
   },
 ];

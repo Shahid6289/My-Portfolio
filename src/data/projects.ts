@@ -10,7 +10,7 @@ export interface Project {
   /** Tailwind gradient classes for the card's image placeholder. */
   gradient: string;
   /** lucide-react icon name shown on the placeholder. */
-  icon: "Gauge" | "GraduationCap";
+  icon: "Gauge" | "Bug";
 }
 
 export const projects: Project[] = [
@@ -19,7 +19,7 @@ export const projects: Project[] = [
     description:
       "A protocol-agnostic performance testing framework built on k6 + TypeScript that load-tests REST, gRPC and WebSocket APIs side by side from a single tool, with CI-enforced cross-protocol consistency checks.",
     features: [
-      "Sequential, concurrent and ramping load profiles composed from k6 scenarios and arrival-rate executors",
+      "Sequential, concurrent, ramping and simultaneous-barrier spike profiles, runnable as distributed k6 runners",
       "Cross-protocol data-consistency assertions — order via REST, verify over gRPC, watch over WebSocket — with k6 thresholds failing CI on any inconsistency",
       "Per-protocol Apdex, custom latency metrics and trace-id failure logging",
       "Self-contained single-file HTML report generated from each run's JSON summary",
@@ -29,17 +29,28 @@ export const projects: Project[] = [
     icon: "Gauge",
   },
   {
-    title: "StudyNotion — EdTech Platform",
+    title: "BugSnap — One-Click Bug Capture & AI-Written Tickets",
     description:
-      "A full-stack EdTech platform supporting 500+ course enrollments, with role-based access control, payment workflows and a regression suite asserting user and transaction integrity at the database level.",
+      "A full-stack bug-reporting platform — Chrome MV3 extension, Node/Express/TypeScript API and React dashboard — that captures console errors, failed network calls, environment info and a screenshot in one click, then files a labeled, severity-rated GitHub issue written by AI.",
     features: [
-      "500+ student enrollments supported",
-      "Role-based access control for students and instructors",
-      "Payment workflow coverage with a TestNG-based regression suite",
-      "Database-level assertions on user and transaction records",
+      "One-click capture of console errors, failed network calls, environment info and a screenshot, filed straight to GitHub Issues",
+      "AI treated as an unreliable dependency: Gemini output is schema-validated with zod and falls back to a deterministic generator, so the API never fails because the AI did",
+      "17 backend tests in Vitest, including an HTTP end-to-end capture flow and RBAC denial cases",
+      "Privacy-first capture with AES-256-GCM token encryption, SHA-256-hashed API keys and no header or request-body capture",
+      "Relational integrity by design — composite-PK membership junction and a deliberate cascade strategy across teams, users and reports",
     ],
-    techStack: ["React.js", "Node.js", "JavaScript", "JWT Auth", "TestNG"],
-    gradient: "from-cyan-500 via-sky-500 to-indigo-500",
-    icon: "GraduationCap",
+    techStack: [
+      "TypeScript",
+      "Chrome MV3",
+      "Node.js",
+      "Express",
+      "PostgreSQL",
+      "Prisma",
+      "React",
+      "Vitest",
+      "Gemini API",
+    ],
+    gradient: "from-rose-500 via-fuchsia-500 to-indigo-500",
+    icon: "Bug",
   },
 ];

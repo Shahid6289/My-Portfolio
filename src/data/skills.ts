@@ -92,7 +92,15 @@ export const skillCategories: SkillCategory[] = [
   {
     title: "CI/CD & DevOps",
     icon: "Workflow",
-    skills: ["Jenkins", "Docker", "Git", "GitHub", "Bitbucket", "Linux/Unix CLI"],
+    skills: [
+      "Jenkins",
+      "Docker",
+      "Kubernetes",
+      "Git",
+      "GitHub",
+      "Bitbucket",
+      "Linux/Unix CLI",
+    ],
   },
   {
     title: "Practices & Tools",

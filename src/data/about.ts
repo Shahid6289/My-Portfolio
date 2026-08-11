@@ -3,7 +3,7 @@ export const about = {
   paragraphs: [
     "I'm a Software Development Engineer in Test based in Kolkata, currently building quality infrastructure at BestQ Software. My work sits at the intersection of engineering and assurance: I design the automation frameworks — Playwright, Selenium, Appium, REST Assured — that let teams ship faster without shipping regressions.",
     "What sets my approach apart is depth across the full stack of quality: I validate everything from UI flows and mobile apps down to API contracts, database schemas and stored procedures, then wire it all into Jenkins CI/CD pipelines with Docker so results stay consistent from laptop to staging.",
-    "I also build the tools I test with. I've engineered BestQ-Perf, a protocol-agnostic performance testing framework that load-tests REST, gRPC and WebSocket APIs side by side, and shipped a full-stack EdTech platform serving 500+ enrollments — experience that makes me a better engineer on both sides of the quality equation.",
+    "I also build the tools I test with. I've engineered a protocol-agnostic performance testing framework that load-tests REST, gRPC and WebSocket APIs side by side, and BugSnap — a full-stack bug-reporting platform whose Chrome extension turns a one-click capture into an AI-written, severity-rated GitHub issue. Building on both sides of the quality equation makes me a better engineer on each.",
   ],
   /** Quick-hit stats shown alongside the narrative. All figures come from the resume. */
   stats: [

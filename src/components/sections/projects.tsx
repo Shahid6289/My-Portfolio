@@ -6,7 +6,7 @@ import {
   ExternalLink,
   Gauge,
   Github,
-  GraduationCap,
+  Bug,
   type LucideIcon,
 } from "lucide-react";
 
@@ -20,7 +20,7 @@ import { cn } from "@/lib/utils";
 /** Resolves icon names stored in @/data/projects to lucide components. */
 const projectIcons: Record<Project["icon"], LucideIcon> = {
   Gauge,
-  GraduationCap,
+  Bug,
 };
 
 export function Projects() {
