@@ -542,8 +542,11 @@ export function Hero() {
               */}
               <div className="absolute inset-0 flex flex-col items-center justify-center gap-1.5 rounded-full border border-border bg-card sm:gap-2">
                 <QualityCore />
-                <span className="flex items-center gap-1 rounded-full border border-primary/20 bg-primary/10 px-2 py-0.5 text-[9px] font-semibold uppercase tracking-[0.12em] text-primary sm:gap-1.5 sm:px-3 sm:py-1 sm:text-[10px] sm:tracking-[0.18em]">
-                  <BadgeCheck className="h-3 w-3 sm:h-3.5 sm:w-3.5" aria-hidden="true" />
+                {/* Sits low in the circle where the chord is narrow: on mobile
+                    the icon is dropped and tracking tightened so the pill stays
+                    inside the curve (145px would overflow the 126px chord). */}
+                <span className="flex items-center gap-1 rounded-full border border-primary/20 bg-primary/10 px-1.5 py-0.5 text-[9px] font-semibold uppercase tracking-[0.04em] text-primary sm:gap-1.5 sm:px-3 sm:py-1 sm:text-[10px] sm:tracking-[0.18em]">
+                  <BadgeCheck className="hidden h-3 w-3 sm:inline sm:h-3.5 sm:w-3.5" aria-hidden="true" />
                   SDET · QA Engineer
                 </span>
               </div>
