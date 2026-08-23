@@ -32,7 +32,7 @@ export function SectionHeading({
       whileInView="visible"
       viewport={VIEWPORT}
       className={cn(
-        "mb-14 flex flex-col gap-4",
+        "mb-8 flex flex-col gap-3 sm:mb-14 sm:gap-4",
         align === "center" ? "items-center text-center" : "items-start text-left",
         className
       )}

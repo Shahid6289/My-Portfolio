@@ -30,7 +30,7 @@ const iconMap: Record<ProcessStep["icon"], LucideIcon> = {
  */
 export function Process() {
   return (
-    <section id="process" className="relative overflow-hidden py-24 sm:py-28">
+    <section id="process" className="relative overflow-hidden py-12 sm:py-24 lg:py-28">
       <div
         className="glow-blob left-[15%] top-16 h-72 w-72 bg-indigo-500/10 dark:bg-indigo-500/20"
         aria-hidden="true"
@@ -59,7 +59,7 @@ export function Process() {
             initial="hidden"
             whileInView="visible"
             viewport={VIEWPORT}
-            className="grid gap-10 sm:grid-cols-2 lg:grid-cols-5 lg:gap-6"
+            className="grid gap-5 sm:grid-cols-2 sm:gap-10 lg:grid-cols-5 lg:gap-6"
           >
             {processSteps.map((step, index) => {
               const Icon = iconMap[step.icon];
@@ -69,14 +69,16 @@ export function Process() {
                   variants={fadeUp}
                   className="group relative flex flex-col items-center text-center"
                 >
-                  <div className="relative z-10 flex h-14 w-14 items-center justify-center rounded-2xl border border-primary/20 bg-card shadow-sm transition-all duration-300 group-hover:-translate-y-1 group-hover:border-primary/40 group-hover:shadow-[0_0_20px_-6px_hsl(var(--primary)/0.5)]">
-                    <Icon className="h-6 w-6 text-primary" aria-hidden="true" />
+                  <div className="relative z-10 flex h-12 w-12 items-center justify-center rounded-2xl border border-primary/20 bg-card shadow-sm transition-all duration-300 group-hover:-translate-y-1 group-hover:border-primary/40 group-hover:shadow-[0_0_20px_-6px_hsl(var(--primary)/0.5)] sm:h-14 sm:w-14">
+                    <Icon className="h-5 w-5 text-primary sm:h-6 sm:w-6" aria-hidden="true" />
                   </div>
-                  <span className="mt-2 font-display text-xs font-bold tracking-widest text-primary/60">
+                  <span className="mt-1.5 font-display text-[11px] font-bold leading-4 tracking-widest text-primary/60 sm:mt-2 sm:text-xs">
                     0{index + 1}
                   </span>
-                  <h3 className="mt-1.5 font-display text-sm font-semibold">{step.title}</h3>
-                  <p className="mt-2 max-w-[16rem] text-xs leading-relaxed text-muted-foreground">
+                  <h3 className="mt-1 font-display text-sm font-semibold sm:mt-1.5">
+                    {step.title}
+                  </h3>
+                  <p className="mt-1.5 max-w-none text-xs leading-snug text-muted-foreground sm:mt-2 sm:max-w-[16rem] sm:leading-relaxed">
                     {step.description}
                   </p>
                 </motion.li>

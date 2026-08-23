@@ -115,7 +115,7 @@ function QualityCore() {
   const reduce = useReducedMotion();
   return (
     <div className="relative" aria-hidden="true">
-      <svg viewBox="0 0 200 200" className="h-52 w-52 sm:h-72 sm:w-72">
+      <svg viewBox="0 0 200 200" className="h-40 w-40 sm:h-72 sm:w-72">
         <defs>
           {/* Stops darken in light mode ([stop-color:…] overrides the attr)
               so the HUD keeps contrast on the white card */}
@@ -321,7 +321,7 @@ function GaugeReadout() {
         <>
           <motion.span
             aria-hidden="true"
-            className="absolute left-1/2 top-1/2 h-24 w-24 rounded-full border-2 border-cyan-400/70"
+            className="absolute left-1/2 top-1/2 h-[4.5rem] w-[4.5rem] rounded-full border-2 border-cyan-400/70 sm:h-24 sm:w-24"
             initial={{ x: "-50%", y: "-50%", scale: 0.7, opacity: 0.8 }}
             animate={{ x: "-50%", y: "-50%", scale: 2, opacity: 0 }}
             transition={{ duration: 0.9, ease: "easeOut" }}
@@ -345,7 +345,7 @@ function GaugeReadout() {
       ) : null}
 
       <motion.span
-        className="text-gradient font-display text-2xl font-bold tracking-tight sm:text-3xl"
+        className="text-gradient font-display text-xl font-bold tracking-tight sm:text-3xl"
         animate={done && !reduce ? { scale: [1, 1.18, 1] } : undefined}
         transition={{ duration: 0.5, ease: "easeOut" }}
       >
@@ -356,7 +356,7 @@ function GaugeReadout() {
       <span
         aria-hidden="true"
         className={cn(
-          "absolute -bottom-6 left-1/2 flex h-2 w-2 -translate-x-1/2 transition-opacity duration-500 sm:-bottom-8",
+          "absolute -bottom-4 left-1/2 flex h-2 w-2 -translate-x-1/2 transition-opacity duration-500 sm:-bottom-8",
           done ? "opacity-100" : "opacity-0"
         )}
       >
@@ -373,7 +373,7 @@ export function Hero() {
   return (
     <section
       id="home"
-      className="relative flex min-h-screen items-center overflow-hidden pb-16 pt-24"
+      className="relative flex min-h-[85svh] items-center overflow-hidden pb-14 pt-20 sm:min-h-screen sm:pb-16 sm:pt-24"
     >
       {/* Backdrop layers */}
       <ParticlesBackground />
@@ -392,7 +392,7 @@ export function Hero() {
       />
 
       <div className="container">
-        <div className="grid items-center gap-16 lg:grid-cols-2 lg:gap-10">
+        <div className="grid items-center gap-11 sm:gap-16 lg:grid-cols-2 lg:gap-10">
           {/* Text column */}
           {/* initial={false}: the hero is above the fold, so it must be visible
               in the prerendered HTML (LCP) instead of waiting for hydration */}
@@ -401,11 +401,11 @@ export function Hero() {
             initial={false}
             whileInView="visible"
             viewport={VIEWPORT}
-            className="flex flex-col items-center gap-6 text-center lg:items-start lg:text-left"
+            className="flex flex-col items-center gap-3 text-center sm:gap-6 lg:items-start lg:text-left"
           >
             <motion.div
               variants={fadeUp}
-              className="glass inline-flex items-center gap-2.5 rounded-full px-4 py-1.5 text-sm font-medium transition-colors duration-300 hover:border-primary/30"
+              className="glass inline-flex items-center gap-2 rounded-full px-3.5 py-1 text-sm font-medium transition-colors duration-300 hover:border-primary/30 sm:gap-2.5 sm:px-4 sm:py-1.5"
             >
               <span className="relative flex h-2 w-2">
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
@@ -416,7 +416,7 @@ export function Hero() {
 
             <motion.h1
               variants={fadeUp}
-              className="font-display text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl"
+              className="font-display text-3xl font-bold tracking-tight sm:text-5xl lg:text-6xl"
             >
               <span className="block">Hi, I&apos;m</span>
               <span className="text-gradient block">{site.name}</span>
@@ -426,7 +426,7 @@ export function Hero() {
                 the line never looks empty between typing cycles */}
             <motion.div
               variants={fadeUp}
-              className="flex min-h-[3.5rem] items-baseline justify-center gap-2.5 font-display text-xl font-semibold sm:min-h-[2.25rem] sm:text-2xl lg:justify-start"
+              className="flex min-h-[2.75rem] items-baseline justify-center gap-2 font-display text-lg font-semibold leading-tight sm:min-h-[2.25rem] sm:gap-2.5 sm:text-2xl sm:leading-8 lg:justify-start"
             >
               <span aria-hidden="true" className="text-gradient select-none">
                 ▸
@@ -434,25 +434,40 @@ export function Hero() {
               <Typewriter phrases={site.typingRoles} className="text-foreground/90" />
             </motion.div>
 
-            <motion.p variants={fadeUp} className="max-w-xl text-muted-foreground">
+            {/* leading-snug + text-sm only below sm; sm:text-base/leading-6
+                restores the inherited 16px/1.5 desktop rhythm exactly */}
+            <motion.p
+              variants={fadeUp}
+              className="max-w-xl text-sm leading-snug text-muted-foreground sm:text-base sm:leading-6"
+            >
               {site.tagline}
             </motion.p>
 
             <motion.div
               variants={fadeUp}
-              className="flex flex-wrap items-center justify-center gap-4 lg:justify-start"
+              className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 lg:justify-start"
             >
+              {/* Below sm the lg size is shrunk to the default button metrics so
+                  both CTAs share one row instead of wrapping onto two */}
               <a
                 href={site.resumePath}
                 download
-                className={cn(buttonVariants({ variant: "gradient", size: "lg" }), "shine")}
+                className={cn(
+                  buttonVariants({ variant: "gradient", size: "lg" }),
+                  "shine",
+                  "h-10 px-5 text-sm sm:h-12 sm:px-7 sm:text-base"
+                )}
               >
                 <Download aria-hidden="true" />
                 Download Resume
               </a>
               <a
                 href="#contact"
-                className={cn(buttonVariants({ variant: "outline", size: "lg" }), "shine")}
+                className={cn(
+                  buttonVariants({ variant: "outline", size: "lg" }),
+                  "shine",
+                  "h-10 px-5 text-sm sm:h-12 sm:px-7 sm:text-base"
+                )}
               >
                 <Mail aria-hidden="true" />
                 Contact Me
@@ -466,7 +481,7 @@ export function Hero() {
                   href={href}
                   aria-label={label}
                   {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-                  className="glass rounded-full p-3 text-muted-foreground transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/40 hover:text-primary hover:shadow-[0_0_16px_-4px_hsl(var(--primary)/0.5)]"
+                  className="glass rounded-full p-2.5 text-muted-foreground transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/40 hover:text-primary hover:shadow-[0_0_16px_-4px_hsl(var(--primary)/0.5)] sm:p-3"
                 >
                   <Icon className="h-5 w-5" aria-hidden="true" />
                 </a>
@@ -476,14 +491,14 @@ export function Hero() {
             {/* Impact strip — the three headline numbers, counted up on view */}
             <motion.div
               variants={fadeUp}
-              className="mt-2 grid w-full max-w-xl grid-cols-3 gap-4 border-t border-border/40 pt-6 sm:gap-6"
+              className="mt-0 grid w-full max-w-xl grid-cols-3 gap-3 border-t border-border/40 pt-4 sm:mt-2 sm:gap-6 sm:pt-6"
             >
               {about.stats.slice(0, 3).map((stat) => (
                 <div key={stat.label} className="text-center lg:text-left">
-                  <div className="text-gradient font-display text-2xl font-bold sm:text-3xl">
+                  <div className="text-gradient font-display text-xl font-bold sm:text-3xl">
                     <CountUp value={stat.value} />
                   </div>
-                  <div className="mt-1 text-xs leading-snug text-muted-foreground">
+                  <div className="mt-0.5 text-[11px] leading-tight text-muted-foreground sm:mt-1 sm:text-xs sm:leading-snug">
                     {stat.label}
                   </div>
                 </div>
@@ -499,7 +514,7 @@ export function Hero() {
             viewport={VIEWPORT}
             className="flex justify-center lg:justify-end"
           >
-            <div className="group relative mr-0 h-72 w-72 sm:h-96 sm:w-96 lg:mr-12">
+            <div className="group relative mr-0 h-56 w-56 sm:h-96 sm:w-96 lg:mr-12">
               {/* Dashed orbit ring — sized in % so the chips (58% radius) ride
                   exactly on it at every breakpoint; accent dots revolve with it */}
               <div
@@ -525,10 +540,10 @@ export function Hero() {
                 <Image src="/profile.jpg" alt="Shahid Parvez" fill priority
                        className="rounded-full object-cover" />
               */}
-              <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 rounded-full border border-border bg-card">
+              <div className="absolute inset-0 flex flex-col items-center justify-center gap-1.5 rounded-full border border-border bg-card sm:gap-2">
                 <QualityCore />
-                <span className="flex items-center gap-1.5 rounded-full border border-primary/20 bg-primary/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-primary">
-                  <BadgeCheck className="h-3.5 w-3.5" aria-hidden="true" />
+                <span className="flex items-center gap-1 rounded-full border border-primary/20 bg-primary/10 px-2 py-0.5 text-[9px] font-semibold uppercase tracking-[0.12em] text-primary sm:gap-1.5 sm:px-3 sm:py-1 sm:text-[10px] sm:tracking-[0.18em]">
+                  <BadgeCheck className="h-3 w-3 sm:h-3.5 sm:w-3.5" aria-hidden="true" />
                   SDET · QA Engineer
                 </span>
               </div>
@@ -567,7 +582,7 @@ export function Hero() {
                       <div className="animate-orbit-reverse flex flex-col items-center group-hover:[animation-play-state:paused]">
                         {/* Big logo disc — the label rides in a pill overlapping below */}
                         <div
-                          className="relative flex h-12 w-12 items-center justify-center overflow-hidden rounded-full border border-zinc-200/80 bg-white shadow-lg transition-transform duration-300 hover:scale-110 dark:border-white/15 dark:bg-zinc-900 sm:h-[4.25rem] sm:w-[4.25rem]"
+                          className="relative flex h-11 w-11 items-center justify-center overflow-hidden rounded-full border border-zinc-200/80 bg-white shadow-lg transition-transform duration-300 hover:scale-110 dark:border-white/15 dark:bg-zinc-900 sm:h-[4.25rem] sm:w-[4.25rem]"
                           // Soft drop shadow tinted with the tool's own brand color
                           style={
                             brand
@@ -602,7 +617,7 @@ export function Hero() {
                             />
                           ) : null}
                         </div>
-                        <div className="glass mt-1.5 whitespace-nowrap rounded-full px-2 py-0.5 text-[10px] font-semibold shadow-md sm:mt-2 sm:px-2.5 sm:text-xs">
+                        <div className="glass mt-1 whitespace-nowrap rounded-full px-1.5 py-0.5 text-[9px] font-semibold shadow-md sm:mt-2 sm:px-2.5 sm:text-xs">
                           {label}
                         </div>
                       </div>

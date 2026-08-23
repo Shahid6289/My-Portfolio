@@ -10,6 +10,7 @@ import {
   type LucideIcon,
 } from "lucide-react";
 
+import { CollapsibleList } from "@/components/shared/collapsible-list";
 import { SectionHeading } from "@/components/shared/section-heading";
 import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button";
@@ -25,7 +26,7 @@ const projectIcons: Record<Project["icon"], LucideIcon> = {
 
 export function Projects() {
   return (
-    <section id="projects" className="relative overflow-hidden py-24 sm:py-28">
+    <section id="projects" className="relative overflow-hidden py-12 sm:py-24 lg:py-28">
       {/* Decorative backdrop */}
       <div
         aria-hidden="true"
@@ -49,7 +50,7 @@ export function Projects() {
           initial="hidden"
           whileInView="visible"
           viewport={VIEWPORT}
-          className="grid gap-8 md:grid-cols-2"
+          className="grid gap-5 sm:gap-8 md:grid-cols-2"
         >
           {projects.map((project) => {
             const Icon = projectIcons[project.icon];
@@ -73,30 +74,34 @@ export function Projects() {
                 */}
                 <div
                   className={cn(
-                    "shine relative flex h-44 items-center justify-center overflow-hidden bg-gradient-to-br",
+                    "shine relative flex h-32 items-center justify-center overflow-hidden bg-gradient-to-br sm:h-44",
                     project.gradient
                   )}
                 >
                   <div aria-hidden="true" className="absolute inset-0 bg-grid opacity-30" />
                   <Icon
                     aria-hidden="true"
-                    className="h-14 w-14 text-white/90 drop-shadow transition-[transform,filter] duration-300 group-hover:scale-105 group-hover:drop-shadow-[0_0_14px_rgba(255,255,255,0.35)]"
+                    className="h-11 w-11 text-white/90 drop-shadow transition-[transform,filter] duration-300 group-hover:scale-105 group-hover:drop-shadow-[0_0_14px_rgba(255,255,255,0.35)] sm:h-14 sm:w-14"
                   />
                 </div>
 
                 {/* Body */}
-                <div className="flex flex-1 flex-col gap-5 p-6">
-                  <div className="space-y-2">
-                    <h3 className="font-display text-xl font-semibold tracking-tight">
+                <div className="flex flex-1 flex-col gap-4 p-4 sm:gap-5 sm:p-6">
+                  <div className="space-y-1.5 sm:space-y-2">
+                    <h3 className="font-display text-lg font-semibold tracking-tight sm:text-xl">
                       {project.title}
                     </h3>
-                    <p className="text-sm leading-relaxed text-muted-foreground">
+                    <p className="text-sm leading-snug text-muted-foreground sm:leading-relaxed">
                       {project.description}
                     </p>
                   </div>
 
-                  <ul className="space-y-2">
-                    {project.features.map((feature) => (
+                  {/* Features — collapsed to the first 3 on mobile only */}
+                  <CollapsibleList
+                    items={project.features}
+                    mobileLimit={3}
+                    className="space-y-1.5 sm:space-y-2"
+                    renderItem={(feature) => (
                       <li key={feature} className="group/item flex items-start gap-2 text-sm">
                         <CheckCircle2
                           aria-hidden="true"
@@ -106,12 +111,12 @@ export function Projects() {
                           {feature}
                         </span>
                       </li>
-                    ))}
-                  </ul>
+                    )}
+                  />
 
                   <motion.div
                     variants={staggerContainer(0.03)}
-                    className="flex flex-wrap gap-2"
+                    className="flex flex-wrap gap-1.5 sm:gap-2"
                   >
                     {project.techStack.map((tech) => (
                       <motion.span key={tech} variants={fadeUp} className="inline-flex">
@@ -126,7 +131,7 @@ export function Projects() {
                   </motion.div>
 
                   {/* Footer */}
-                  <div className="mt-auto flex flex-wrap items-center gap-3 pt-1">
+                  <div className="mt-auto flex flex-wrap items-center gap-2 sm:gap-3 sm:pt-1">
                     {project.github ? (
                       <a
                         href={project.github}

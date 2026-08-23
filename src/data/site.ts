@@ -11,14 +11,15 @@ export const site = {
   typingRoles: [
     "Software Development Engineer in Test",
     "QA Automation Engineer",
-    "API & Database Testing Specialist",
-    "Mobile Test Automation Engineer",
+    "API & Database Testing",
+    "Mobile Test Automation",
+    "Performance & Security Testing",
   ],
   tagline:
-    "I build the automation frameworks and quality pipelines that let teams ship with confidence — Playwright, Selenium, Appium and API test suites wired into CI/CD.",
+    "I design and scale test automation that ships faster and lasts longer — focusing on frameworks, resilience, and CI/CD integration. With proven success in both fast-paced startups and large enterprises, I help teams move confidently from code-commit to production release.",
   email: "devcraft.shahid@gmail.com",
   phone: "+91-6289883556",
-  location: "Kolkata, India · Open to Remote",
+  location: "Kolkata · West Bengal · India",
   /** Public site URL — override with NEXT_PUBLIC_SITE_URL when deployed. */
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://shahidparvez.vercel.app",
   resumePath: "/Shahid_Parvez_Resume.pdf",

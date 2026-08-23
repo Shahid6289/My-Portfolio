@@ -120,7 +120,7 @@ export function Contact() {
   }
 
   return (
-    <section id="contact" className="relative overflow-hidden py-24 sm:py-28">
+    <section id="contact" className="relative overflow-hidden py-12 sm:py-24 lg:py-28">
       {/* Decorative backdrop */}
       <div
         aria-hidden="true"
@@ -136,21 +136,21 @@ export function Contact() {
           subtitle="Hiring for an SDET or full-stack role, or have a project in mind? My inbox is always open — I usually reply within a day."
         />
 
-        <div className="grid gap-10 lg:grid-cols-5">
+        <div className="grid gap-6 sm:gap-10 lg:grid-cols-5">
           {/* Left: direct channels */}
           <motion.div
             variants={staggerContainer()}
             initial="hidden"
             whileInView="visible"
             viewport={VIEWPORT}
-            className="flex flex-col gap-4 lg:col-span-2"
+            className="flex flex-col gap-2.5 sm:gap-4 lg:col-span-2"
           >
             {channels.map((channel) => {
               const Icon = contactIcons[channel.icon] ?? Mail;
               const inner = (
                 <>
-                  <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary transition-transform duration-300 group-hover:scale-110">
-                    <Icon className="h-5 w-5" aria-hidden="true" />
+                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary transition-transform duration-300 group-hover:scale-110 sm:h-11 sm:w-11">
+                    <Icon className="h-4 w-4 sm:h-5 sm:w-5" aria-hidden="true" />
                   </span>
                   <span className="min-w-0 flex-1">
                     <span className="block text-xs font-medium uppercase tracking-wider text-muted-foreground">
@@ -169,7 +169,7 @@ export function Contact() {
                 </>
               );
               const rowClasses =
-                "group glass flex items-center gap-4 rounded-2xl p-4 transition-all duration-300 hover:-translate-y-1 hover:border-primary/30 hover:shadow-lg hover:shadow-primary/10";
+                "group glass flex items-center gap-3 rounded-2xl p-3 transition-all duration-300 hover:-translate-y-1 hover:border-primary/30 hover:shadow-lg hover:shadow-primary/10 sm:gap-4 sm:p-4";
 
               return (
                 <motion.div key={channel.label} variants={fadeUp}>
@@ -200,7 +200,7 @@ export function Contact() {
             viewport={VIEWPORT}
             className="lg:col-span-3"
           >
-            <Card className="glass p-6 focus-within:border-primary/40 focus-within:shadow-lg focus-within:shadow-primary/10 dark:focus-within:border-primary/40 sm:p-8">
+            <Card className="glass p-4 focus-within:border-primary/40 focus-within:shadow-lg focus-within:shadow-primary/10 dark:focus-within:border-primary/40 sm:p-8">
               <form onSubmit={handleSubmit}>
                 {/* Honeypot — visually hidden, ignored by humans, catnip for bots */}
                 <div
@@ -217,9 +217,12 @@ export function Contact() {
                   />
                 </div>
 
-                <div className="grid gap-5 sm:grid-cols-2">
+                <div className="grid gap-3 sm:grid-cols-2 sm:gap-5">
                   <div>
-                    <label htmlFor="contact-name" className="mb-2 block text-sm font-medium">
+                    <label
+                      htmlFor="contact-name"
+                      className="mb-1.5 block text-sm font-medium sm:mb-2"
+                    >
                       Name
                     </label>
                     <Input
@@ -231,7 +234,10 @@ export function Contact() {
                     />
                   </div>
                   <div>
-                    <label htmlFor="contact-email" className="mb-2 block text-sm font-medium">
+                    <label
+                      htmlFor="contact-email"
+                      className="mb-1.5 block text-sm font-medium sm:mb-2"
+                    >
                       Email
                     </label>
                     <Input
@@ -245,8 +251,11 @@ export function Contact() {
                   </div>
                 </div>
 
-                <div className="mt-5">
-                  <label htmlFor="contact-subject" className="mb-2 block text-sm font-medium">
+                <div className="mt-3 sm:mt-5">
+                  <label
+                    htmlFor="contact-subject"
+                    className="mb-1.5 block text-sm font-medium sm:mb-2"
+                  >
                     Subject{" "}
                     <span className="font-normal text-muted-foreground">(optional)</span>
                   </label>
@@ -257,8 +266,11 @@ export function Contact() {
                   />
                 </div>
 
-                <div className="mt-5">
-                  <label htmlFor="contact-message" className="mb-2 block text-sm font-medium">
+                <div className="mt-3 sm:mt-5">
+                  <label
+                    htmlFor="contact-message"
+                    className="mb-1.5 block text-sm font-medium sm:mb-2"
+                  >
                     Message
                   </label>
                   <Textarea
@@ -266,6 +278,7 @@ export function Contact() {
                     name="message"
                     required
                     placeholder="Tell me about the role or project…"
+                    className="min-h-[96px] sm:min-h-[120px]"
                   />
                 </div>
 
@@ -273,7 +286,7 @@ export function Contact() {
                   type="submit"
                   variant="gradient"
                   size="lg"
-                  className="shine mt-6 w-full"
+                  className="shine mt-4 w-full sm:mt-6"
                   disabled={status === "sending"}
                 >
                   {status === "sending" ? (
@@ -289,7 +302,7 @@ export function Contact() {
                   )}
                 </Button>
 
-                <p role="status" aria-live="polite" className="mt-4 min-h-5 text-sm">
+                <p role="status" aria-live="polite" className="mt-3 min-h-5 text-sm sm:mt-4">
                   <AnimatePresence mode="wait" initial={false}>
                     {status === "success" ? (
                       <motion.span

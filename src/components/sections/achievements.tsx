@@ -17,7 +17,7 @@ const achievementIcons: Record<Achievement["icon"], LucideIcon> = {
 
 export function Achievements() {
   return (
-    <section id="achievements" className="relative overflow-hidden py-24 sm:py-28">
+    <section id="achievements" className="relative overflow-hidden py-12 sm:py-24 lg:py-28">
       {/* Decorative backdrop */}
       <div
         aria-hidden="true"
@@ -36,7 +36,7 @@ export function Achievements() {
           initial="hidden"
           whileInView="visible"
           viewport={VIEWPORT}
-          className="grid gap-6 sm:grid-cols-2"
+          className="grid gap-3 sm:grid-cols-2 sm:gap-6"
         >
           {achievements.map((achievement) => {
             const Icon = achievementIcons[achievement.icon];
@@ -45,17 +45,17 @@ export function Achievements() {
               <motion.article
                 key={achievement.title}
                 variants={fadeUp}
-                className="group rounded-2xl border bg-card p-6 transition-all duration-300 hover:-translate-y-1 hover:border-primary/30 hover:shadow-lg hover:shadow-primary/10"
+                className="group rounded-2xl border bg-card p-4 transition-all duration-300 hover:-translate-y-1 hover:border-primary/30 hover:shadow-lg hover:shadow-primary/10 sm:p-6"
               >
-                <div className="flex items-start gap-4">
-                  <div className="shine flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-indigo-500 to-cyan-500 text-white shadow-md transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3">
-                    <Icon aria-hidden="true" className="h-5 w-5" />
+                <div className="flex items-start gap-3 sm:gap-4">
+                  <div className="shine flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-indigo-500 to-cyan-500 text-white shadow-md transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3 sm:h-11 sm:w-11">
+                    <Icon aria-hidden="true" className="h-4 w-4 sm:h-5 sm:w-5" />
                   </div>
-                  <div className="space-y-1.5">
-                    <h3 className="font-display font-semibold tracking-tight transition-colors duration-300 group-hover:text-primary">
+                  <div className="space-y-1 sm:space-y-1.5">
+                    <h3 className="font-display font-semibold leading-snug tracking-tight transition-colors duration-300 group-hover:text-primary sm:leading-normal">
                       {achievement.title}
                     </h3>
-                    <p className="text-sm leading-relaxed text-muted-foreground">
+                    <p className="text-sm leading-snug text-muted-foreground sm:leading-relaxed">
                       {achievement.description}
                     </p>
                   </div>

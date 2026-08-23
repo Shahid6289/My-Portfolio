@@ -16,7 +16,7 @@ export function Certifications() {
   }
 
   return (
-    <section id="certifications" className="relative overflow-hidden py-24 sm:py-28">
+    <section id="certifications" className="relative overflow-hidden py-12 sm:py-24 lg:py-28">
       {/* Decorative backdrop */}
       <div
         aria-hidden="true"

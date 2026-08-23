@@ -10,7 +10,7 @@ import { fadeUp, scaleIn, staggerContainer, VIEWPORT } from "@/lib/motion";
 
 export function About() {
   return (
-    <section id="about" className="relative overflow-hidden py-24 sm:py-28">
+    <section id="about" className="relative overflow-hidden py-12 sm:py-24 lg:py-28">
       <div
         className="glow-blob left-1/4 top-0 h-72 w-72 bg-indigo-500/10 dark:bg-indigo-500/20"
         aria-hidden="true"
@@ -23,27 +23,27 @@ export function About() {
           subtitle="A quick look at who I am, how I work, and the impact behind the numbers."
         />
 
-        <div className="grid gap-10 lg:grid-cols-5 lg:gap-12">
+        <div className="grid gap-6 sm:gap-10 lg:grid-cols-5 lg:gap-12">
           {/* Narrative + quick facts */}
           <motion.div
             variants={staggerContainer()}
             initial="hidden"
             whileInView="visible"
             viewport={VIEWPORT}
-            className="flex flex-col gap-6 lg:col-span-3"
+            className="flex flex-col gap-4 sm:gap-6 lg:col-span-3"
           >
             {about.paragraphs.map((paragraph) => (
               <motion.p
                 key={paragraph.slice(0, 32)}
                 variants={fadeUp}
-                className="leading-relaxed text-muted-foreground"
+                className="text-sm leading-snug text-muted-foreground sm:text-base sm:leading-relaxed"
               >
                 {paragraph}
               </motion.p>
             ))}
 
-            <motion.div variants={fadeUp} className="glass rounded-2xl p-6">
-              <ul className="flex flex-col gap-4 text-sm">
+            <motion.div variants={fadeUp} className="glass rounded-2xl p-4 sm:p-6">
+              <ul className="flex flex-col gap-3 text-sm sm:gap-4">
                 <li className="group/item flex items-center gap-3">
                   <MapPin
                     className="h-4 w-4 shrink-0 text-primary transition-transform duration-300 group-hover/item:translate-x-0.5"
@@ -92,7 +92,7 @@ export function About() {
           >
             <div className="group overflow-hidden rounded-2xl border border-zinc-800 bg-zinc-950 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-primary/30 hover:shadow-lg hover:shadow-primary/10">
               {/* Title bar */}
-              <div className="flex items-center gap-2 border-b border-zinc-800 bg-zinc-900/70 px-4 py-3">
+              <div className="flex items-center gap-2 border-b border-zinc-800 bg-zinc-900/70 px-3 py-2 sm:px-4 sm:py-3">
                 <span className="h-2.5 w-2.5 rounded-full bg-rose-500/80" aria-hidden="true" />
                 <span className="h-2.5 w-2.5 rounded-full bg-amber-500/80" aria-hidden="true" />
                 <span className="h-2.5 w-2.5 rounded-full bg-emerald-500/80" aria-hidden="true" />
@@ -107,7 +107,7 @@ export function About() {
                 initial="hidden"
                 whileInView="visible"
                 viewport={VIEWPORT}
-                className="space-y-1.5 p-5 font-mono text-[13px] leading-relaxed text-zinc-300"
+                className="space-y-1 p-4 font-mono text-xs leading-relaxed text-zinc-300 sm:space-y-1.5 sm:p-5 sm:text-[13px]"
               >
                 <motion.p variants={fadeUp}>
                   <span className="text-indigo-400">$</span> npx playwright test
@@ -134,7 +134,7 @@ export function About() {
                 <motion.p variants={fadeUp} className="pt-1 font-semibold text-emerald-400">
                   200 passed <span className="font-normal text-zinc-500">(3m 42s)</span>
                 </motion.p>
-                <motion.p variants={fadeUp} className="pt-2">
+                <motion.p variants={fadeUp} className="pt-1.5 sm:pt-2">
                   <span className="text-indigo-400">$</span> All quality gates green — ship it
                   <span
                     className="ml-1 inline-block h-3.5 w-[7px] animate-blink bg-indigo-400 align-middle"

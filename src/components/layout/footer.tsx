@@ -42,7 +42,7 @@ export function Footer() {
 
       <div className="container relative">
         {/* CTA band */}
-        <div className="flex flex-col items-center gap-5 py-14 text-center sm:py-16">
+        <div className="flex flex-col items-center gap-4 py-10 text-center sm:gap-5 sm:py-16">
           <h2 className="font-display text-2xl font-bold tracking-tight sm:text-3xl">
             Let&apos;s ship something <span className="text-gradient">reliable</span> together
           </h2>
@@ -57,16 +57,16 @@ export function Footer() {
         </div>
 
         {/* Columns */}
-        <div className="grid gap-10 border-t border-border/40 py-12 md:grid-cols-[1.6fr_1fr_1.2fr]">
+        <div className="grid gap-7 border-t border-border/40 py-8 sm:gap-10 sm:py-12 md:grid-cols-[1.6fr_1fr_1.2fr]">
           {/* Brand */}
-          <div className="space-y-4">
+          <div className="space-y-3 sm:space-y-4">
             <p className="flex items-center gap-2">
               <span className="text-gradient font-display text-2xl font-bold tracking-tight">
                 SP.
               </span>
               <span className="font-display font-semibold">{site.name}</span>
             </p>
-            <p className="max-w-xs text-sm leading-relaxed text-muted-foreground">
+            <p className="max-w-xs text-xs leading-snug text-muted-foreground sm:text-sm sm:leading-relaxed">
               {site.tagline}
             </p>
             <p className="inline-flex items-center gap-2 rounded-full border border-emerald-500/20 bg-emerald-500/10 px-3 py-1 text-xs font-medium text-emerald-600 dark:text-emerald-400">
@@ -80,8 +80,8 @@ export function Footer() {
 
           {/* Quick links */}
           <nav aria-label="Footer">
-            <h3 className="mb-4 text-sm font-semibold uppercase tracking-wider">Explore</h3>
-            <ul className="grid grid-cols-2 gap-x-6 gap-y-2.5">
+            <h3 className="mb-3 text-sm font-semibold uppercase tracking-wider sm:mb-4">Explore</h3>
+            <ul className="grid grid-cols-2 gap-x-6 gap-y-2 sm:gap-y-2.5">
               {site.nav.map((item) => (
                 <li key={item.href}>
                   <a
@@ -97,8 +97,10 @@ export function Footer() {
 
           {/* Contact */}
           <div>
-            <h3 className="mb-4 text-sm font-semibold uppercase tracking-wider">Get in touch</h3>
-            <ul className="space-y-2.5">
+            <h3 className="mb-3 text-sm font-semibold uppercase tracking-wider sm:mb-4">
+              Get in touch
+            </h3>
+            <ul className="space-y-2 sm:space-y-2.5">
               {contacts.map(({ label, href, Icon }) => (
                 <li key={label} className="flex items-center gap-2.5 text-sm text-muted-foreground">
                   <Icon className="h-4 w-4 shrink-0 text-primary" aria-hidden="true" />
@@ -112,13 +114,13 @@ export function Footer() {
                 </li>
               ))}
             </ul>
-            <div className="mt-5 flex items-center gap-3">
+            <div className="mt-4 flex items-center gap-3 sm:mt-5">
               {socials.map(({ label, href, Icon, external }) => (
                 <a
                   key={label}
                   href={href}
                   aria-label={label}
-                  className="glass rounded-full p-2.5 text-muted-foreground transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/30 hover:text-primary"
+                  className="glass rounded-full p-2 text-muted-foreground transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/30 hover:text-primary sm:p-2.5"
                   {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
                 >
                   <Icon className="h-4 w-4" aria-hidden="true" />
@@ -129,7 +131,7 @@ export function Footer() {
         </div>
 
         {/* Bottom bar */}
-        <div className="flex flex-col items-center justify-between gap-2 border-t border-border/40 py-6 text-xs text-muted-foreground sm:flex-row">
+        <div className="flex flex-col items-center justify-between gap-1.5 border-t border-border/40 py-4 text-xs text-muted-foreground sm:flex-row sm:gap-2 sm:py-6">
           <p>
             &copy; <CurrentYear /> {site.name}. All rights reserved.
           </p>

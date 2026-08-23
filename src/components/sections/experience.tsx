@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { ChevronRight, MapPin } from "lucide-react";
 
+import { CollapsibleList } from "@/components/shared/collapsible-list";
 import { SectionHeading } from "@/components/shared/section-heading";
 import { Badge } from "@/components/ui/badge";
 import { experiences } from "@/data/experience";
@@ -17,7 +18,7 @@ import { cn } from "@/lib/utils";
 export function Experience() {
 
   return (
-    <section id="experience" className="relative overflow-hidden py-24 sm:py-28">
+    <section id="experience" className="relative overflow-hidden py-12 sm:py-24 lg:py-28">
       {/* Decorative backdrop */}
       <div
         aria-hidden
@@ -53,7 +54,7 @@ export function Experience() {
             initial="hidden"
             whileInView="visible"
             viewport={VIEWPORT}
-            className="space-y-12"
+            className="space-y-6 sm:space-y-12"
           >
             {experiences.map((experience, index) => {
               const isLeft = index % 2 === 0;
@@ -81,14 +82,16 @@ export function Experience() {
                   <motion.article
                     variants={isLeft ? slideInLeft : slideInRight}
                     className={cn(
-                      "group glass rounded-2xl p-6 transition-all duration-300 hover:-translate-y-1 hover:border-primary/30 hover:shadow-lg hover:shadow-primary/10",
+                      "group glass rounded-2xl p-4 transition-all duration-300 hover:-translate-y-1 hover:border-primary/30 hover:shadow-lg hover:shadow-primary/10 sm:p-6",
                       isLeft ? "lg:col-start-1" : "lg:col-start-2"
                     )}
                   >
                     {/* Header: role, duration, company, location */}
-                    <div className="flex flex-wrap items-start justify-between gap-3">
+                    <div className="flex flex-wrap items-start justify-between gap-2 sm:gap-3">
                       <div>
-                        <h3 className="font-display text-lg font-semibold">{experience.role}</h3>
+                        <h3 className="font-display text-base font-semibold sm:text-lg">
+                          {experience.role}
+                        </h3>
                         <p className="mt-1 font-medium text-primary">
                           <span className="bg-gradient-brand bg-[length:0%_1px] bg-left-bottom bg-no-repeat pb-0.5 transition-[background-size] duration-500 group-hover:bg-[length:100%_1px]">
                             {experience.company}
@@ -112,23 +115,28 @@ export function Experience() {
                       </span>
                     </div>
 
-                    {/* Highlights */}
-                    <ul className="mt-5 space-y-2.5">
-                      {experience.highlights.map((highlight) => (
-                        <li key={highlight} className="group/item flex gap-2">
-                          <ChevronRight
-                            className="mt-1 h-4 w-4 shrink-0 text-primary transition-transform duration-300 group-hover/item:translate-x-0.5"
-                            aria-hidden
-                          />
-                          <span className="text-sm leading-relaxed text-muted-foreground transition-colors duration-300 group-hover/item:text-foreground">
-                            {highlight}
-                          </span>
-                        </li>
-                      ))}
-                    </ul>
+                    {/* Highlights — collapsed to the first 3 on mobile only */}
+                    <div className="mt-4 sm:mt-5">
+                      <CollapsibleList
+                        items={experience.highlights}
+                        mobileLimit={3}
+                        className="space-y-2 sm:space-y-2.5"
+                        renderItem={(highlight) => (
+                          <li key={highlight} className="group/item flex gap-2">
+                            <ChevronRight
+                              className="mt-1 h-4 w-4 shrink-0 text-primary transition-transform duration-300 group-hover/item:translate-x-0.5"
+                              aria-hidden
+                            />
+                            <span className="text-sm leading-snug text-muted-foreground transition-colors duration-300 group-hover/item:text-foreground sm:leading-relaxed">
+                              {highlight}
+                            </span>
+                          </li>
+                        )}
+                      />
+                    </div>
 
                     {/* Tech tags */}
-                    <div className="mt-5 flex flex-wrap gap-2 border-t border-border/60 pt-4">
+                    <div className="mt-4 flex flex-wrap gap-1.5 border-t border-border/60 pt-3 sm:mt-5 sm:gap-2 sm:pt-4">
                       {experience.technologies.map((technology) => (
                         <Badge
                           key={technology}

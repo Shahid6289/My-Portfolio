@@ -36,7 +36,7 @@ const iconMap: Record<SkillCategory["icon"], LucideIcon> = {
 
 export function Skills() {
   return (
-    <section id="skills" className="relative overflow-hidden py-24 sm:py-28">
+    <section id="skills" className="relative overflow-hidden py-12 sm:py-24 lg:py-28">
       <div
         className="bg-grid absolute inset-0 [mask-image:radial-gradient(ellipse_60%_60%_at_50%_40%,black,transparent)]"
         aria-hidden="true"
@@ -59,12 +59,15 @@ export function Skills() {
           initial="hidden"
           whileInView="visible"
           viewport={VIEWPORT}
-          className="mb-12 flex flex-wrap items-center justify-center gap-2.5"
+          className="mb-6 flex flex-wrap items-center justify-center gap-1.5 sm:mb-12 sm:gap-2.5"
         >
           {testingTypes.map((type) => (
             <motion.span key={type} variants={fadeUp}>
-              <span className="glass inline-flex items-center gap-1.5 rounded-full px-4 py-1.5 text-sm font-medium transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/40 hover:text-primary">
-                <CheckCircle2 className="h-3.5 w-3.5 text-primary" aria-hidden="true" />
+              <span className="glass inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-xs font-medium transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/40 hover:text-primary sm:gap-1.5 sm:px-4 sm:py-1.5 sm:text-sm">
+                <CheckCircle2
+                  className="h-3 w-3 text-primary sm:h-3.5 sm:w-3.5"
+                  aria-hidden="true"
+                />
                 {type}
               </span>
             </motion.span>
@@ -76,7 +79,7 @@ export function Skills() {
           initial="hidden"
           whileInView="visible"
           viewport={VIEWPORT}
-          className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3"
+          className="grid gap-3 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3"
         >
           {skillCategories.map((category) => {
             const Icon = iconMap[category.icon];
@@ -87,25 +90,27 @@ export function Skills() {
                     className="bg-gradient-brand absolute inset-x-0 top-0 h-px opacity-0 transition-opacity duration-300 group-hover:opacity-60"
                     aria-hidden="true"
                   />
-                  <CardHeader className="flex-row items-center gap-3 space-y-0">
-                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-indigo-500/15 to-cyan-500/15 text-primary transition-all duration-300 group-hover:scale-110 group-hover:shadow-[0_0_18px_-4px_hsl(var(--primary)/0.45)]">
-                      <Icon className="h-5 w-5" aria-hidden="true" />
+                  <CardHeader className="flex-row items-center gap-2.5 space-y-0 p-4 pb-3 sm:gap-3 sm:p-6">
+                    <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-indigo-500/15 to-cyan-500/15 text-primary transition-all duration-300 group-hover:scale-110 group-hover:shadow-[0_0_18px_-4px_hsl(var(--primary)/0.45)] sm:h-10 sm:w-10">
+                      <Icon className="h-[18px] w-[18px] sm:h-5 sm:w-5" aria-hidden="true" />
                     </div>
-                    <CardTitle>{category.title}</CardTitle>
+                    <CardTitle className="text-base leading-none sm:text-lg sm:leading-none">
+                      {category.title}
+                    </CardTitle>
                   </CardHeader>
-                  <CardContent>
+                  <CardContent className="p-4 pt-0 sm:p-6 sm:pt-0">
                     <motion.div
                       variants={staggerContainer(0.03)}
                       initial="hidden"
                       whileInView="visible"
                       viewport={VIEWPORT}
-                      className="flex flex-wrap gap-2"
+                      className="flex flex-wrap gap-1.5 sm:gap-2"
                     >
                       {category.skills.map((skill) => (
                         <motion.span key={skill} variants={fadeUp}>
                           <Badge
                             variant="secondary"
-                            className="transition-colors hover:border-primary/40 hover:text-primary"
+                            className="px-2 transition-colors hover:border-primary/40 hover:text-primary sm:px-2.5"
                           >
                             {skill}
                           </Badge>
