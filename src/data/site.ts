@@ -24,7 +24,7 @@ export const site = {
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://shahidparvez.vercel.app",
   resumePath: "/Shahid_Parvez_Resume.pdf",
   socials: {
-    linkedin: "https://www.linkedin.com/in/shahid-parvez-8599961b3/",
+    linkedin: "https://www.linkedin.com/in/shahid-parvez-sdet/",
     github: "https://github.com/Shahid6289",
   },
   /** Section anchors used by the navbar, command palette and footer. */
