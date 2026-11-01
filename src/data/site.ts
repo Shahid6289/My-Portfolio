@@ -14,6 +14,7 @@ export const site = {
     "API & Database Testing",
     "Mobile Test Automation",
     "Performance & Security Testing",
+    "AI Guardrail & PII Testing",
   ],
   tagline:
     "I design and scale test automation that ships faster and lasts longer — focusing on frameworks, resilience, and CI/CD integration. With proven success in both fast-paced startups and large enterprises, I help teams move confidently from code-commit to production release.",
@@ -22,7 +23,8 @@ export const site = {
   location: "Kolkata · West Bengal · India",
   /** Public site URL — override with NEXT_PUBLIC_SITE_URL when deployed. */
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://shahidparvez.vercel.app",
-  resumePath: "/Shahid_Parvez_Resume.pdf",
+  /** Must match the actual filename in /public, or the download 404s. */
+  resumePath: "/Shahid_Parvez_SDET_Resume.pdf",
   socials: {
     linkedin: "https://www.linkedin.com/in/shahid-parvez-sdet/",
     github: "https://github.com/Shahid6289",
@@ -57,6 +59,15 @@ export const site = {
       "k6",
       "JMeter",
       "gRPC",
+      "Karate",
+      "Newman",
+      "PyTest",
+      "AJV Schema Validation",
+      "Contract Testing",
+      "AI Testing",
+      "LLM Testing",
+      "AI Guardrail Testing",
+      "PII Testing",
       "Kolkata",
     ],
   },

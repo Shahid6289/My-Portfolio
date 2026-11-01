@@ -14,7 +14,8 @@ export interface SkillCategory {
     | "Database"
     | "Cloud"
     | "Workflow"
-    | "Wrench";
+    | "Wrench"
+    | "BrainCircuit";
   skills: string[];
 }
 
@@ -35,13 +36,20 @@ export const testingTypes = [
   "Mobile Testing",
   "Performance & Load Testing",
   "Security Testing (OWASP)",
+  "Integration Testing",
+  "End-to-End Testing",
+  "Exploratory Testing",
+  "Negative & Edge-Case Design",
+  "Contract & Schema Testing",
+  "AI Guardrail Testing",
+  "PII & Data-Privacy Testing",
 ] as const;
 
 export const skillCategories: SkillCategory[] = [
   {
     title: "Programming Languages",
     icon: "Code2",
-    skills: ["Java", "JavaScript", "TypeScript", "SQL"],
+    skills: ["Java", "JavaScript", "TypeScript", "Python", "SQL"],
   },
   {
     title: "Test Automation",
@@ -53,6 +61,13 @@ export const skillCategories: SkillCategory[] = [
       "Appium",
       "REST Assured",
       "Postman",
+      "Newman",
+      "Karate",
+      "PyTest",
+      "AJV JSON-Schema Validation",
+      "Page Object Model",
+      "Parallel & Cross-Browser Runs",
+      "Webhook & Callback Testing",
       "k6",
       "JMeter",
       "Burp Suite (OWASP Top 10)",
@@ -67,6 +82,8 @@ export const skillCategories: SkillCategory[] = [
       "Load Profile Design",
       "Apdex & Latency Metrics",
       "CI Performance Gates",
+      "Distributed k6 Runners on Kubernetes",
+      "Spike & Capacity Baselines",
     ],
   },
   {
@@ -82,12 +99,19 @@ export const skillCategories: SkillCategory[] = [
   {
     title: "Databases",
     icon: "Database",
-    skills: ["MySQL", "MongoDB", "Stored Procedures", "Triggers", "Schema & Data Validation"],
+    skills: [
+      "MySQL",
+      "PostgreSQL",
+      "MongoDB",
+      "Stored Procedures",
+      "Triggers",
+      "Schema & Data Validation",
+    ],
   },
   {
     title: "Cloud",
     icon: "Cloud",
-    skills: ["AWS EC2", "AWS Lambda", "AWS RDS", "Boto3"],
+    skills: ["AWS EC2", "AWS Lambda", "AWS RDS", "Boto3", "GCP Secret Manager"],
   },
   {
     title: "CI/CD & DevOps",
@@ -105,6 +129,29 @@ export const skillCategories: SkillCategory[] = [
   {
     title: "Practices & Tools",
     icon: "Wrench",
-    skills: ["Agile / Scrum", "SDLC & STLC", "Jira", "Defect Lifecycle", "Requirement Reviews"],
+    skills: [
+      "Agile / Scrum",
+      "SDLC & STLC",
+      "Jira",
+      "Defect Lifecycle",
+      "Requirement Reviews",
+      "Test Strategy",
+      "Coverage-Gap Dashboards",
+      "Flaky-Test Triage",
+      "Root-Cause Analysis",
+    ],
+  },
+  {
+    title: "AI & LLM Quality",
+    icon: "BrainCircuit",
+    skills: [
+      "AI Guardrail Testing",
+      "Adversarial Prompt Suites",
+      "PII Masking Validation",
+      "Synthetic Test Data",
+      "LLM APIs",
+      "GitHub Copilot",
+      "Claude",
+    ],
   },
 ];

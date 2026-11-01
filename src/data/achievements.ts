@@ -6,10 +6,22 @@ export interface Achievement {
   title: string;
   description: string;
   /** lucide-react icon name resolved in the Achievements section. */
-  icon: "Target" | "Database" | "Bug" | "Layers";
+  icon: "Target" | "Database" | "Bug" | "Layers" | "ShieldCheck" | "LayoutDashboard";
 }
 
 export const achievements: Achievement[] = [
+  {
+    title: "AI Quality Engineering",
+    description:
+      "Built the guardrail and data-privacy test practice for an LLM platform — adversarial prompt coverage across ten risk categories, platform-block vs model-refusal classification, and PII masking verified across 32 entity types.",
+    icon: "ShieldCheck",
+  },
+  {
+    title: "QA Baseline Built from Zero",
+    description:
+      "Created a platform's QA baseline across 13 modules and wrote a Python (openpyxl) pipeline merging manual test cases from several workbooks into one coverage-gap dashboard with stable IDs — then surfaced 60 defects through exploratory testing of the model lifecycle.",
+    icon: "LayoutDashboard",
+  },
   {
     title: "End-to-End Test Strategy Ownership",
     description:

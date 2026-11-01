@@ -30,7 +30,7 @@ A modern, responsive portfolio for **Shahid Parvez** — SDET · QA Automation E
 
 ```
 ├── public/
-│   └── Shahid_Parvez_Resume.pdf   # served by the "Download Resume" buttons
+│   └── Shahid_Parvez_SDET_Resume.pdf   # served by the "Download Resume" buttons
 ├── src/
 │   ├── app/
 │   │   ├── layout.tsx             # fonts, metadata, theme provider, JSON-LD

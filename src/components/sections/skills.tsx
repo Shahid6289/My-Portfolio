@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import {
+  BrainCircuit,
   CheckCircle2,
   Cloud,
   Code2,
@@ -32,6 +33,7 @@ const iconMap: Record<SkillCategory["icon"], LucideIcon> = {
   Cloud,
   Workflow,
   Wrench,
+  BrainCircuit,
 };
 
 export function Skills() {

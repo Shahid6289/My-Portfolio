@@ -18,7 +18,15 @@ export const education: Education[] = [
     location: "Kolkata, India",
     duration: "May 2022 – June 2025",
     highlights: [
+      "Admitted through lateral entry after the B.Sc. in Electronics.",
       "Completed the degree while working part-time as an SDET Intern during the final year.",
     ],
+  },
+  {
+    degree: "B.Sc. in Electronics",
+    college: "Rishi Bankim Chandra College",
+    university: "West Bengal State University (WBSU)",
+    location: "Kolkata, India",
+    duration: "2019 – 2022",
   },
 ];

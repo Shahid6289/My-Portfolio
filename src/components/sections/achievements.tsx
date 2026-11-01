@@ -1,7 +1,15 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Bug, Database, Layers, Target, type LucideIcon } from "lucide-react";
+import {
+  Bug,
+  Database,
+  Layers,
+  LayoutDashboard,
+  ShieldCheck,
+  Target,
+  type LucideIcon,
+} from "lucide-react";
 
 import { SectionHeading } from "@/components/shared/section-heading";
 import { achievements, type Achievement } from "@/data/achievements";
@@ -13,6 +21,8 @@ const achievementIcons: Record<Achievement["icon"], LucideIcon> = {
   Database,
   Bug,
   Layers,
+  ShieldCheck,
+  LayoutDashboard,
 };
 
 export function Achievements() {

@@ -4,7 +4,13 @@ export interface Experience {
   role: string;
   duration: string;
   location: string;
-  /** Responsibility / achievement bullets, impact-first. */
+  /**
+   * Responsibility / achievement bullets, impact-first.
+   *
+   * Deliberately kept to ~10 per role: the card renders every bullet from the
+   * `sm` breakpoint up, so a longer list turns the timeline into a wall of
+   * text. Related points are merged into one bullet rather than appended.
+   */
   highlights: string[];
   technologies: string[];
 }
@@ -16,31 +22,30 @@ export const experiences: Experience[] = [
     duration: "Oct 2025 – Present",
     location: "Remote · Kolkata, India",
     highlights: [
-      "Built multi-protocol performance testing capability — measured by per-protocol Apdex and response-time reports under concurrent load — by developing a k6 + TypeScript framework that load-tests REST, gRPC and WebSocket APIs, complemented by baseline load tests with Apache JMeter.",
-      "Cut UI regression cycle time by ~30% by building and maintaining a Playwright (TypeScript) automation framework that replaced repetitive manual test cases.",
-      "Reduced regression testing time by 40% with a Selenium WebDriver + TestNG UI framework, replacing 200+ manual test cases across sprint cycles.",
-      "Improved data integrity across 3 services — zero post-deployment data defects — by authoring SQL stored procedures and assertion scripts validating schema consistency and business logic.",
-      "Expanded mobile coverage with Appium suites for Android and iOS, cutting manual mobile regression effort by 50%.",
-      "Achieved zero pipeline-blocking failures over 4 months by integrating automated suites into Jenkins CI/CD with Docker-containerised execution.",
-      "Strengthened API reliability by validating REST payloads, status codes, headers and auth flows with Postman and REST Assured.",
-      "Validated OWASP Top 10 risk areas (XSS, SQL injection, auth flaws) with Burp Suite, reducing security defect leakage into production.",
+      "Own quality for AI Hub, an intelligent document processing and AI assistant platform: built its Playwright API regression framework across six inference services — 98.6% endpoint coverage, AJV schema validation on every response.",
+      "Automated the full async batch lifecycle — create, upload, poll, results, stop/resume — across five model families, with webhook callback testing.",
+      "Built an AI guardrail harness running adversarial prompts across ten risk categories, separating platform blocks from model refusals, and verified PII masking across 32 entity types.",
+      "Built the Playwright UI suite (Page Object Model) covering train, deploy, infer, review and retrain across four model types, plus tenant onboarding.",
+      "Made the suites trustworthy: a shared rate limiter with split 429/5xx retries, per-flow contract tests, network-idle waits instead of sleeps, and builds that fail on silently skipped tests.",
+      "Created the QA baseline across 13 modules with a Python (openpyxl) coverage-gap dashboard, and found 60 defects through exploratory testing.",
+      "Cut UI regression cycle time ~30%, migrating the legacy Selenium (Java/TestNG) suite to Playwright without losing coverage.",
+      "Replaced manual API checks with REST Assured, Postman/Newman and Karate suites, wired into Jenkins on Docker runners alongside PyTest and Appium.",
+      "Ran distributed k6 load and spike tests on Kubernetes to set capacity baselines for transaction-heavy services.",
     ],
     technologies: [
       "Playwright",
-      "k6",
-      "Selenium",
-      "TestNG",
-      "Appium",
+      "TypeScript",
+      "Page Object Model",
+      "AJV Schema Validation",
       "REST Assured",
-      "Postman",
-      "gRPC",
-      "WebSocket",
-      "JMeter",
-      "Burp Suite",
+      "Postman / Newman",
+      "Karate",
+      "Python (PyTest)",
+      "Appium",
+      "k6",
       "Jenkins",
       "Docker",
-      "SQL",
-      "Jira",
+      "Kubernetes"
     ],
   },
   {
@@ -49,24 +54,22 @@ export const experiences: Experience[] = [
     duration: "Oct 2024 – Apr 2025",
     location: "Onsite · Kolkata, India (part-time alongside final-year studies)",
     highlights: [
-      "Increased REST API test coverage by ~35% by executing functional and edge-case scenarios with REST Assured and Postman across microservices.",
-      "Validated zero data loss in a legacy-to-microservices migration by writing SQL queries and stored procedures asserting row-level accuracy post-migration.",
-      "Reduced manual regression effort by ~40% by automating regression scripts and integrating them into Jenkins pipelines under Git version control.",
-      "Built Appium test scripts for Android mobile regression and wired them into Jenkins, cutting manual mobile QA time by 40%.",
-      "Automated AWS infrastructure tasks with Boto3 and Lambda, validating environment state through SQL assertions on RDS — managed via the Linux CLI.",
-      "Contributed to release quality by writing manual test cases and participating in requirement reviews across the SDLC and STLC.",
+      "Increased REST API test coverage ~35% with functional, negative and edge-case scenarios in REST Assured and Postman across microservices.",
+      "Automated UI regression with Selenium (Java) and TestNG on Jenkins, cutting manual regression effort ~40% per cycle.",
+      "Ran the automated suites against AWS EC2 test environments, under Git version control.",
+      "Tracked defects to closure in Jira across Agile sprints, working with developers through triage, fix and re-verification.",
+      "Wrote manual test cases and joined requirement reviews across the SDLC and STLC.",
     ],
     technologies: [
+      "Selenium",
+      "TestNG",
+      "Java",
       "REST Assured",
       "Postman",
-      "Appium",
       "Jenkins",
       "Git",
-      "AWS Lambda",
-      "AWS RDS",
-      "Boto3",
-      "SQL",
-      "Linux",
+      "Amazon Web Services",
+      "Jira",
     ],
   },
 ];
